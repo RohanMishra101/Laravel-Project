@@ -93,11 +93,16 @@ button {
     text-transform: uppercase;
     font-weight: 600;
     font-family: "Nunito", sans-serif;
-    background: -webkit-linear-gradient(left, #7579ff, #b224ef);
+    /* background: -webkit-linear-gradient(left, #7579ff, #b224ef); */
+    background: #38aee0;
+    transition: all 200ms ease-in-out;
 }
 
 .submit:hover {
-    background: -webkit-linear-gradient(left, #b224ef, #7579ff);
+    /* background: -webkit-linear-gradient(left, #b224ef, #7579ff); */
+    border: 2px solid #38aee0;
+    color: #38aee0;
+    background: #fff;
 }
 
 .forgot-pass {
@@ -184,7 +189,8 @@ button {
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    /* background: rgba(0, 0, 0, 0.3); */
+    background: #38aee0;
 }
 
 .cont.s-signup .img:before {
