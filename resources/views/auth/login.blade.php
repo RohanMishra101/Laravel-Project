@@ -50,25 +50,39 @@
 
 
                     <div class="form sign-up">
-                        <form action="">
+                        <form method="post" action="{{ route('e_store-signUp') }}">
+                            @csrf
                             <h2>Sign Up</h2>
                             <label>
-                                <span>Name</span>
-                                <input type="text">
+                                {{-- <span>Name</span> --}}
+                                <input type="text" placeholder="Username" name="username">
+                                @error('username')
+                                    <span>{{ $message }}</span>
+                                @enderror
                             </label>
                             <label>
-                                <span>Email</span>
-                                <input type="email">
+                                {{-- <span>Email</span> --}}
+                                <input type="email" placeholder="Email" name="email">
+                                @error('email')
+                                    <span>{{ $message }}</span>
+                                @enderror
                             </label>
                             <label>
-                                <span>Password</span>
-                                <input type="password">
+                                {{-- <span>Password</span> --}}
+                                <input type="password" placeholder="Password"name="password">
+                                @error('password')
+                                    <span>{{ $message }}</span>
+                                @enderror
                             </label>
                             <label>
-                                <span>Confirm Password</span>
-                                <input type="password">
+                                {{-- <span>Confirm Password</span> --}}
+                                <input type="password" placeholder="Confirm Password" name="confirmPassword">
+                                @error('confirmPassword')
+                                    <span>{{ $message }}</span>
+                                @enderror
                             </label>
-                            <button type="button" class="submit">Sign Up Now</button>
+                            <input type="hidden" name="isMerchant" value="false">
+                            <button type="submit" class="submit">Sign Up</button>
                         </form>
                     </div>
                 </div>
