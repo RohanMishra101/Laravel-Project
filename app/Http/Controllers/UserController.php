@@ -9,17 +9,36 @@ class UserController extends Controller
 {
     public function index()
     {
+        return view('pages.home');
+    }
+    public function createAccount()
+    {
         return view('auth.login');
     }
-    public function home()
+    public function signIn(Request $request)
     {
-        return view('home.main');
+        $request->validate([
+            'email' => 'required | email',
+            'password' => 'required'
+        ]);
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (password_verify($request->password, $user->password)) {
+                session()->put('user', $user);
+                return redirect(route('e_store-Home'));
+            } else {
+                // Flash a message to the session to indicate an incorrect password
+                session()->flash('error', 'The provided password is incorrect.');
+                return back()->withInput($request->only('email'));
+            }
+        }
+
     }
     public function signUp(Request $request)
     {
         $request->validate([
             'username' => 'required',
-            'email' => 'required',
+            'email' => 'required | email | unique:users,email',
             'password' => 'required',
             'confirmPassword' => 'required',
             'isMerchant' => 'required'
@@ -35,7 +54,7 @@ class UserController extends Controller
             ];
             // dd($parsedData);
 
-            // User::create($parsedData);
+            User::create($parsedData);
         }
 
         return view('auth.success');
