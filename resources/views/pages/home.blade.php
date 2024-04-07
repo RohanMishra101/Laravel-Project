@@ -11,6 +11,7 @@
 <body>
     <main>
         <h1>This is the main page for browsing products</h1>
+        <a href="{{ route('e_store-login') }}">CREATE ACCOUNT</a>
     </main>
 </body>
 
