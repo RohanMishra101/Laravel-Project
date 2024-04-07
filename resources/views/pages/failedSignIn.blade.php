@@ -9,12 +9,7 @@
 </head>
 
 <body>
-    <main>
-        <h1>Sing Up Sucesssfull!!</h1>
-        <form method="get" action="{{ route('e_store-login') }}">
-            <button>Continue</button>
-        </form>
-    </main>
+    <h1>Login Failed</h1>
 </body>
 
 </html>
