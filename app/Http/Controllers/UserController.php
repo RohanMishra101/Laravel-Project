@@ -31,6 +31,10 @@ class UserController extends Controller
                 session()->flash('error', 'The provided password is incorrect.');
                 return back()->withInput($request->only('email'));
             }
+        } else {
+            // Flash a message to the session to indicate an incorrect email
+            session()->flash('error', 'The provided email is incorrect.');
+            return back()->withInput($request->only('email'));
         }
 
     }
@@ -71,4 +75,5 @@ class UserController extends Controller
         }
         return redirect(route('e_store-Home'));
     }
+
 }
