@@ -64,4 +64,11 @@ class UserController extends Controller
     {
         return view('auth.login');
     }
+    public function logout()
+    {
+        if (session()->has('user')) {
+            session()->forget('user');
+        }
+        return redirect(route('e_store-Home'));
+    }
 }
