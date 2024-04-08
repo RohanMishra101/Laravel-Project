@@ -10,7 +10,8 @@
 
 <body>
     <main>
-        {{-- <h1>This is the main page for browsing products</h1>
+        {{-- THis is a testing code donot touch --}}
+        <h1>This is the main page for browsing products</h1>
 
         @if (session()->has('user'))
             <p>{{ session()->get('user')->username }}</p>
@@ -18,9 +19,13 @@
             <a href="{{ route('e_store-login') }}">CREATE ACCOUNT</a>
         @endif
 
-        <a href="{{ route('e_store-logout') }}">Log Out</a> --}}
+        <a href="{{ route('e_store-logout') }}">Log Out</a>
+        {{-- THis is a testing code donot touch --}}
 
 
+
+        {{-- main code for this page start here --}}
+        <h1>This site is under construction</h1>
         <section title="nav-section">
 
         </section>

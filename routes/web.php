@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,3 +26,7 @@ Route::get('/failedSignIn', function () {
 })->name('e_store-failedSignIn');
 
 Route::get('/logout', [UserController::class, 'logout'])->name('e_store-logout');
+
+
+// Store creation page
+Route::get('/createStore', [StoreController::class, 'index'])->name('e_store-createStore');
