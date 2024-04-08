@@ -24,3 +24,4 @@ Route::get('/failedSignIn', function () {
     return view('pages.failedSignIn');
 })->name('e_store-failedSignIn');
 
+Route::get('/logout', [UserController::class, 'logout'])->name('e_store-logout');
