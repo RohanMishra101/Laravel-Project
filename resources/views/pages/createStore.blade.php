@@ -12,43 +12,50 @@
     <main>
         <section title="body section">
             @if (session()->has('user'))
-                {{-- Main Body Div --}}
-                <div>
-                    <h1>Create You Store</h1>
+                @if ($hasStore)
+                    <h1>You have already created a store</h1>
+                    <a href="{{ route('e_store-dashboard') }}">go to dashboard</a>
+                @else
                     <div>
-                        <form action="">
-                            <div>
-                                <input type="text" name="" placeholder="Store Name" required>
+                        <h1>Create You Store</h1>
+                        <div>
+                            <form method="POST" action="{{ route('e_store-storeCreation') }}"
+                                enctype="multipart/form-data">
+                                @csrf
                                 <div>
-                                    <img id="uploadedImage" src="" alt="Uploaded Image Preview">
+                                    <input type="text" name="store_name" placeholder="Store Name" required>
+                                    <div>
+                                        <img id="uploadedImage" src="" alt="Uploaded Image Preview">
+                                    </div>
+                                    <input type="file" name ="image" id="fileInput" accept="image/*"
+                                        style="display: none;">
+                                    <input type="button" value="Upload Logo"
+                                        onclick="document.getElementById('fileInput').click();" required>
+
                                 </div>
-                                <input type="file" id="fileInput" accept="image/*" style="display: none;">
-                                <input type="button" value="Upload Logo"
-                                    onclick="document.getElementById('fileInput').click();" required>
+                                <textarea id="storeDescription" name="description" placeholder="Enter store description here..." required rows="4"
+                                    cols="50"></textarea>
+                                <input type="email" placeholder="Store Email" name="email"
+                                    value="{{ session()->get('user')->email }}" disabled>
+                                <input type="number" name="contact_no" placeholder="Phone Number" required>
+                                <input type="text" name="address" placeholder="Physical Address" required>
 
-                            </div>
-                            <textarea id="storeDescription" name="storeDescription" placeholder="Enter store description here..." required
-                                rows="4" cols="50"></textarea>
-                            <input type="email" placeholder="Store Email" value="{{ session()->get('user')->email }}"
-                                disabled>
-                            <input type="number" placeholder="Phone Number" required>
-                            <input type="text" placeholder="Physical Address" required>
+                                <label for="category">Category:</label>
 
-                            <label for="category">Category:</label>
-                            <select name="category" id="category" required>
-                                <option value="" disabled selected>Select a category</option>
-                                <option value="category1">Category 1</option>
-                                <option value="category2">Category 2</option>
-                                <option value="category3">Category 3</option>
-                                <option value="category4">Category 4</option>
-                                <option value="category5">Category 5</option>
-                            </select>
+                                <select name="c_name" id="category" required>
+                                    <option value="" disabled selected>Select a category</option>
+                                    @foreach ($categories as $item)
+                                        <option value="{{ $item->c_name }}">{{ $item->c_name }}</option>
+                                    @endforeach
+                                </select>
 
 
-                            <button type="submit">Create Store</button>
-                        </form>
+                                <button type="submit">Create Store</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                @endif
+                {{-- Main Body Div --}}
             @else
                 <h1>Seems like you havent logged in!! Please Login first</h1>
                 <a href="{{ route('e_store-login') }}">Login</a>

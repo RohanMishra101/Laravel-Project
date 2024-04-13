@@ -30,3 +30,7 @@ Route::get('/logout', [UserController::class, 'logout'])->name('e_store-logout')
 
 // Store creation page
 Route::get('/createStore', [StoreController::class, 'index'])->name('e_store-createStore');
+
+Route::post('/storeCreation', [StoreController::class, 'storeCreation'])->name('e_store-storeCreation');
+
+Route::get('/dashboard', [StoreController::class, 'dashboard'])->name('e_store-dashboard');
