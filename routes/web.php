@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserStoreController;
 use Illuminate\Support\Facades\Route;
 
 //Home Page
@@ -34,3 +35,5 @@ Route::get('/createStore', [StoreController::class, 'index'])->name('e_store-cre
 Route::post('/storeCreation', [StoreController::class, 'storeCreation'])->name('e_store-storeCreation');
 
 Route::get('/dashboard', [StoreController::class, 'dashboard'])->name('e_store-dashboard');
+
+Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
