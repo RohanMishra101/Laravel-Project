@@ -1,0 +1,8 @@
+.nav-svg {
+    fill: black; /* Default color */
+    transition: fill 0.2s ease-in-out; /* Smooth color transition */
+}
+
+.nav-link:hover .nav-svg {
+    fill: #38aee0; /* Color changes to blue on hover */
+}
