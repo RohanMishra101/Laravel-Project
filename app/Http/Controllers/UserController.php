@@ -13,7 +13,11 @@ class UserController extends Controller
     }
     public function createAccount()
     {
-        return view('auth.login');
+        if (session()->has('user')) {
+            return redirect(route('e_store-Home'));
+        } else {
+            return view('auth.login');
+        }
     }
     public function signIn(Request $request)
     {
@@ -36,7 +40,6 @@ class UserController extends Controller
             session()->flash('error', 'The provided email is incorrect.');
             return back()->withInput($request->only('email'));
         }
-
     }
     public function signUp(Request $request)
     {
