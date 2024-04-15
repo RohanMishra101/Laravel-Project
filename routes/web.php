@@ -3,6 +3,7 @@
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserStoreController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 //Home Page
@@ -37,3 +38,4 @@ Route::post('/storeCreation', [StoreController::class, 'storeCreation'])->name('
 Route::get('/dashboard', [StoreController::class, 'dashboard'])->name('e_store-dashboard');
 
 Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
+

@@ -71,7 +71,7 @@ class StoreController extends Controller
                 // URL path to access the image via the web
                 $urlPath = asset('store_image/' . $finalFilename);
 
-                $request->image = $urlPath;
+                $request->image=$urlPath;
             } catch (\Exception $e) {
                 // Catch any errors
                 Log::error($e->getMessage());
