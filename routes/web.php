@@ -35,7 +35,9 @@ Route::get('/createStore', [StoreController::class, 'index'])->name('e_store-cre
 
 Route::post('/storeCreation', [StoreController::class, 'storeCreation'])->name('e_store-storeCreation');
 
-Route::get('/dashboard', [StoreController::class, 'dashboard'])->name('e_store-dashboard');
+Route::get('/dashboard', [ProductController::class, 'index'])->name('e_store-dashboard');
+
+Route::post('/productAdd', [ProductController::class, 'addProduct'])->name('e_store-addProduct');
 
 Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
 

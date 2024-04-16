@@ -91,7 +91,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     {{-- <li>{{ session()->get('user')->username }}</li> --}}
                                     <li><a class="dropdown-item" href="#">View Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Store</a></li>
+                                    <li><a class="dropdown-item" href="{{route('e_store-dashboard')}}">Store</a></li>
                                     <li><a class="dropdown-item" href="#">Log Out</a></li>
                                 </ul>
                             </li>
