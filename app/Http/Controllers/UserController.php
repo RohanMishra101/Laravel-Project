@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        return view('pages.home');
+        $categories = Category::all();
+        return view('pages.home', ['categories' => $categories]);
     }
     public function createAccount()
     {
