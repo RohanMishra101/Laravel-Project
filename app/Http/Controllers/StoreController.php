@@ -38,8 +38,6 @@ class StoreController extends Controller
             'description' => 'required',
             'contact_no' => 'required',
             'address' => 'required',
-            'c_name' => 'required'
-
         ]);
 
         if ($request->hasFile('image')) {
@@ -80,8 +78,6 @@ class StoreController extends Controller
         }
 
 
-        $c_id = Category::where('c_name', $request->c_name)->first();
-
         // dd($c_id->id);
 
         $user_id = session()->get('user')->id;
@@ -94,7 +90,6 @@ class StoreController extends Controller
             'img' => $request->image,
             'contact_no' => $request->contact_no,
             'address' => $request->address,
-            'c_id' => $c_id->id,
         ];
 
         // dd($storeData);
