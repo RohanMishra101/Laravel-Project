@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('img')->nullable();
             $table->string('contact_no');
             $table->text('address');
-            $table->foreignId('c_id')->constrained('categories')->onDelete('cascade');
+            // $table->foreignId('c_id')->constrained('categories')->onDelete('cascade');
 
             $table->timestamps();
         });

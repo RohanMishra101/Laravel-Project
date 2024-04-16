@@ -16,6 +16,5 @@ class Store extends Model
         'img',
         'contact_no',
         'address',
-        'c_id',
     ];
 }
