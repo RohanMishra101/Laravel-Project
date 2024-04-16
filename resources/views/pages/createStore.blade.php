@@ -40,14 +40,7 @@
                                 <input type="number" name="contact_no" placeholder="Phone Number" required>
                                 <input type="text" name="address" placeholder="Physical Address" required>
 
-                                <label for="category">Category:</label>
-
-                                <select name="c_name" id="category" required>
-                                    <option value="" disabled selected>Select a category</option>
-                                    @foreach ($categories as $item)
-                                        <option value="{{ $item->c_name }}">{{ $item->c_name }}</option>
-                                    @endforeach
-                                </select>
+                                
 
 
                                 <button type="submit">Create Store</button>

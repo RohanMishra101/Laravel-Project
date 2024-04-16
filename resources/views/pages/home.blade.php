@@ -90,10 +90,8 @@
                                         @endif
                                     </li>
                                     <li><a class="dropdown-item" href="#">View Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Store</a></li>
-                                    <li class="custom-log"><a class="dropdown-item"
-                                            href="{{ route('e_store-logout') }}">Log Out</a>
-                                    </li>
+                                    <li><a class="dropdown-item" href="{{route('e_store-dashboard')}}">Store</a></li>
+                                    <li><a class="dropdown-item" href="#">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
