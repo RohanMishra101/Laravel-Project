@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .nav-svg {
     fill: black; /* Default color */
     transition: fill 0.2s ease-in-out; /* Smooth color transition */
@@ -6,3 +11,68 @@
 .nav-link:hover .nav-svg {
     fill: #38aee0; /* Color changes to blue on hover */
 }
+/* Flex for top section */
+
+.p-tag {
+    /* border: 2px solid red; */
+    text-align: center;
+}
+/* search Bar */
+.custom-css {
+    margin-bottom: 30px;
+}
+#search {
+    border-right: none; /* Creates a seamless link between the input and the button */
+}
+
+.btn-primary:hover {
+    background-color: #2a8ca1;
+    border-color: #2a8ca1;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem rgba(56, 174, 224, 0.5);
+}
+
+/* production */
+.h1-custom-font {
+    font-size: 4.5rem;
+}
+.custom-hr {
+    border-radius: 50px;
+    border: 5px solid black;
+    opacity: 100%;
+    background: #000;
+    width: 14%;
+    margin: 0 auto;
+}
+/* filter */
+.filter {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    padding: 10px;
+}
+.custom-btn {
+    border: 2px solid #38aee0;
+    border-radius: 30px;
+    background: #fff;
+    /* background: #38aee0; */
+    /* color: white; */
+    padding: 4px 30px 4px 30px;
+    transition: all 200ms ease-in-out;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.custom-btn:hover {
+    /* border: 2px solid #38aee0; */
+    border: none;
+    background: #38aee0;
+    color: white;
+    transform: scale(1.07);
+    transition: all 200ms ease-in-out;
+}
+
+/* Product list */
+
