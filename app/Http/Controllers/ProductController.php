@@ -54,26 +54,40 @@ class ProductController extends Controller
         // $add->p_stock=$p_stock;
 
         // $add->save();
-        // Store::create($storeData);
+        Store::create($productData);
         return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products'=>$products]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    
+    public function editProduct($id,Request $request)
     {
-        //
+
+        $product=Product::find($id);
+        $product->c_id = $request->p_category;
+        $product->p_name = $request->p_name;
+        $product->p_description = $request->p_disc;
+        $product->p_price = $request->p_price;
+        $product->p_stock = $request->p_stock;
+        
+        $product->update();
+        $category= Category::all();
+        $userId = session()->get('user')->id;
+        $storeId = Store::where('user_id',$userId)->first()->id;
+        $products=Product::where('store_id',$storeId)->get();
+        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products'=>$products]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function deleteProduct($id)
     {
-        //
+        $product=Product::find($id);
+        $product->delete();
+        $category= Category::all();
+        $userId = session()->get('user')->id;
+        $storeId = Store::where('user_id',$userId)->first()->id;
+        $products=Product::where('store_id',$storeId)->get();
+        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products'=>$products]);
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */

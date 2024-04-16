@@ -39,5 +39,9 @@ Route::get('/dashboard', [ProductController::class, 'index'])->name('e_store-das
 
 Route::post('/productAdd', [ProductController::class, 'addProduct'])->name('e_store-addProduct');
 
+Route::post('/productEdit/{id}', [ProductController::class, 'editProduct'])->name('e_store-editProduct');
+
+Route::post('/productDelete/{id}', [ProductController::class, 'deleteProduct'])->name('e_store-deleteProduct');
+
 Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
 
