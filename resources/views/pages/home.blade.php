@@ -14,37 +14,25 @@
 <body>
     <main>
         {{-- THis is a testing code donot touch --}}
-        <h1>This is the main page for browsing products</h1>
+        {{-- <h1>This is the main page for browsing products</h1>
 
         @if (session()->has('user'))
             <p>{{ session()->get('user')->username }}</p>
         @else
             <a href="{{ route('e_store-login') }}">CREATE ACCOUNT</a>
-        @endif
+        @endif --}}
 
-        <a href="{{ route('e_store-logout') }}">Log Out</a>
+        {{-- <a href="{{ route('e_store-logout') }}">Log Out</a> --}}
         {{-- THis is a testing code donot touch --}}
 
 
 
         {{-- main code for this page start here --}}
-        <h1>This site is under construction</h1>
-        <section title="nav-section">
+        {{-- <h1>This site is under construction</h1> --}}
+        <section title="nav-section" class="bg-light">
 
-            <nav>
-                {{-- class="nav justify-content-end align-items-center" --}}
-                {{-- class="btn etxt-align-center btn-outline-secondary px-5" --}}
-                <div class="nav justify-content-end">
-                    @if (session()->has('user'))
-                        <div>
-                            <p>{{ session()->get('user')->username }}</p>
-                        </div>
-                    @else
-                        <a href="{{ route('e_store-login') }}">CREATE ACCOUNT | LOG IN</a>
-                    @endif
-                </div>
-            </nav>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <nav class="container navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid px-5">
                     <!-- Logo on the left -->
                     <a class="navbar-brand" href="#">
@@ -90,9 +78,22 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     {{-- <li>{{ session()->get('user')->username }}</li> --}}
+                                    <li class="text-center">
+                                        @if (session()->has('user'))
+                                            <div>
+                                                <p class="p-tag">
+                                                    {{ session()->get('user')->username }}
+                                                </p>
+                                            </div>
+                                        @else
+                                            <a href="{{ route('e_store-login') }}">LOG IN</a>
+                                        @endif
+                                    </li>
                                     <li><a class="dropdown-item" href="#">View Profile</a></li>
                                     <li><a class="dropdown-item" href="#">Store</a></li>
-                                    <li><a class="dropdown-item" href="#">Log Out</a></li>
+                                    <li class="custom-log"><a class="dropdown-item"
+                                            href="{{ route('e_store-logout') }}">Log Out</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

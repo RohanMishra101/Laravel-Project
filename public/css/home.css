@@ -10,12 +10,19 @@
 
 .nav-link:hover .nav-svg {
     fill: #38aee0; /* Color changes to blue on hover */
+    /* Flex for top section */
 }
-/* Flex for top section */
 
 .p-tag {
     /* border: 2px solid red; */
     text-align: center;
+    color: #38aee0;
+    cursor: pointer;
+}
+
+.custom-log {
+    /* color: #38aee0; */
+    text-decoration: underline;
 }
 /* search Bar */
 .custom-css {
@@ -75,4 +82,3 @@
 }
 
 /* Product list */
-
