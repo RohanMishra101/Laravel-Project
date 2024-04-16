@@ -18,7 +18,12 @@ class ProductController extends Controller
         $storeId = Store::where('user_id',$userId)->first()->id;
         $category= Category::all();
         $products=Product::where('store_id',$storeId)->get();
-        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products'=>$products]);
+        $products1=Product::where('store_id',$storeId)->where('c_id',1)->get();
+        $products2=Product::where('store_id',$storeId)->where('c_id',2)->get();
+        $products3=Product::where('store_id',$storeId)->where('c_id',3)->get();
+        $products4=Product::where('store_id',$storeId)->where('c_id',4)->get();
+        $products5=Product::where('store_id',$storeId)->where('c_id',5)->get();
+        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products1'=>$products1,'products2'=>$products2,'products3'=>$products3,'products4'=>$products4,'products5'=>$products5]);
     }
 
     /**
@@ -26,10 +31,8 @@ class ProductController extends Controller
      */
     public function addProduct(Request $request)
     {
-        $category= Category::all();
         $userId = session()->get('user')->id;
         $storeId = Store::where('user_id',$userId)->first()->id;
-        $products=Product::where('store_id',$storeId)->get();
 
         $productData=[
             'store_id'=>$storeId,
@@ -39,23 +42,16 @@ class ProductController extends Controller
             'p_price'=>$request->p_price,
             'p_stock'=>$request->p_stock
         ];
-        // $p_name=$request->p_name;   
-        // $p_disc=$request->p_disc;
-        // $p_price=$request->p_price;
-        // $p_stock=$request->p_stock;
-        // $p_category=$request->p_category;
-
-        // $add=new Product();
-        // $add->store_id=$storeId;
-        // $add->c_id=$p_category;
-        // $add->p_name=$p_name;
-        // $add->p_description=$p_disc;
-        // $add->p_price=$p_price;
-        // $add->p_stock=$p_stock;
-
-        // $add->save();
         Store::create($productData);
-        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products'=>$products]);
+        $category= Category::all();
+        $userId = session()->get('user')->id;
+        $storeId = Store::where('user_id',$userId)->first()->id;
+        $products1=Product::where('store_id',$storeId)->where('c_id',1)->get();
+        $products2=Product::where('store_id',$storeId)->where('c_id',2)->get();
+        $products3=Product::where('store_id',$storeId)->where('c_id',3)->get();
+        $products4=Product::where('store_id',$storeId)->where('c_id',4)->get();
+        $products5=Product::where('store_id',$storeId)->where('c_id',5)->get();
+        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products1'=>$products1,'products2'=>$products2,'products3'=>$products3,'products4'=>$products4,'products5'=>$products5]);
     }
 
     
@@ -73,8 +69,12 @@ class ProductController extends Controller
         $category= Category::all();
         $userId = session()->get('user')->id;
         $storeId = Store::where('user_id',$userId)->first()->id;
-        $products=Product::where('store_id',$storeId)->get();
-        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products'=>$products]);
+        $products1=Product::where('store_id',$storeId)->where('c_id',1)->get();
+        $products2=Product::where('store_id',$storeId)->where('c_id',2)->get();
+        $products3=Product::where('store_id',$storeId)->where('c_id',3)->get();
+        $products4=Product::where('store_id',$storeId)->where('c_id',4)->get();
+        $products5=Product::where('store_id',$storeId)->where('c_id',5)->get();
+        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products1'=>$products1,'products2'=>$products2,'products3'=>$products3,'products4'=>$products4,'products5'=>$products5]);
     }
 
     public function deleteProduct($id)
@@ -84,10 +84,14 @@ class ProductController extends Controller
         $category= Category::all();
         $userId = session()->get('user')->id;
         $storeId = Store::where('user_id',$userId)->first()->id;
-        $products=Product::where('store_id',$storeId)->get();
-        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products'=>$products]);
+        $products1=Product::where('store_id',$storeId)->where('c_id',1)->get();
+        $products2=Product::where('store_id',$storeId)->where('c_id',2)->get();
+        $products3=Product::where('store_id',$storeId)->where('c_id',3)->get();
+        $products4=Product::where('store_id',$storeId)->where('c_id',4)->get();
+        $products5=Product::where('store_id',$storeId)->where('c_id',5)->get();
+        return view('pages.dashboard',['storeId' => $storeId,'userId'=>$userId,'categories'=>$category,'products1'=>$products1,'products2'=>$products2,'products3'=>$products3,'products4'=>$products4,'products5'=>$products5]);
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
