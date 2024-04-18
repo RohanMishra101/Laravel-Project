@@ -17,4 +17,5 @@ class Store extends Model
         'contact_no',
         'address',
     ];
+
 }

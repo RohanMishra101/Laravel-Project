@@ -250,36 +250,6 @@
                             $categoryProducts = $productData->where('c_id', $category->id);
                         @endphp
                         @if ($categoryProducts->isNotEmpty())
-                            {{-- <div class="container mt-5 border border-dark p-3">
-                                <div>
-                                    <h2>{{ $category->c_name }}</h2>
-                                </div>
-                                @foreach ($categoryProducts as $product)
-                                    <div class=" border border-dark p-3">
-                                        <img src="{{ asset($product->p_img) }}" alt="">
-                                        <p>{{ $product->p_name }}</p>
-                                        <p>{{ $product->p_description }}</p>
-                                        <p>{{ $product->p_price }}</p>
-                                        <p>{{ $product->p_stock }}</p>
-                                        <p>{{ $product->c_name }}</p>
-                                        <button type="submit" id="showEditForm-{{ $product->id }}">Edit</button>
-                                        <button type="submit"
-                                            id="showDeleteForm-{{ $product->id }}">Delete</button>
-                                        <div id="hiddenEditForm-{{ $product->id }}" style="display: none">
-                                            <form action="/productEdit/{{ $product->id }}" method="post">
-                                                @csrf()
-                                                <button type="submit">Submit</button>
-                                            </form>
-                                        </div>
-                                        <div id="hiddenDeleteForm-{{ $product->id }}" style="display: none">
-                                            <form action="/productDelete/{{ $product->id }}" method="post">
-                                                @csrf()
-                                                <button type="submit">Submit</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div> --}}
                             <div class="container mt-5">
                                 <div class="row border border-dark rounded-3">
                                     <div class=" p-3">

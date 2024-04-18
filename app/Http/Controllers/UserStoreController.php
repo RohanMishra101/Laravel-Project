@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -27,17 +29,18 @@ class UserStoreController extends Controller
         } else {
             dd('Store not found');
         }
+        $storeId = $storeData->toArray()[0]['id'];
+        $category = Category::all();
+        $products = Product::with('category')->where('store_id', $storeId)->get();
+        // dd($products->toArray());
 
 
-
-
-        // dd($storeData->toArray());
         return view('store.userStore', [
             'storeData' => $storeData,
-            'userEmail' => $userEmail
+            'userEmail' => $userEmail,
+            'categories' => $category,
+            'productData' => $products
         ]);
-        // dd($storeName);
-        // return view('pages.userStore');
 
     }
 }
