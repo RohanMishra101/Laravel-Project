@@ -11,12 +11,11 @@ class UserStoreController extends Controller
     public function storePage($storeName)
     {
         $storeData = Store::where('store_name', $storeName)->get();
-
+        // dd($storeData->toArray());
         if ($storeData) {
             $userId = $storeData->toArray()[0]['user_id'];
-            // dd($userId);
             // Retrieve user data based on user_id
-            $user = User::find($userId); // Using find() is more appropriate for primary key searches
+            $user = User::find($userId);
 
             // If user exists, you can access the user's email directly
             if ($user) {
@@ -28,6 +27,9 @@ class UserStoreController extends Controller
         } else {
             dd('Store not found');
         }
+
+
+
 
         // dd($storeData->toArray());
         return view('store.userStore', [
