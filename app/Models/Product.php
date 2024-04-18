@@ -13,8 +13,13 @@ class Product extends Model
         'store_id',
         'c_id',
         'p_name',
+        'p_img',
         'p_description',
         'p_price',
         'p_stock'
     ];
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'c_id');
+    }
 }
