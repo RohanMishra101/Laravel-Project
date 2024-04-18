@@ -116,11 +116,12 @@
         </section>
 
         <section title="Products-section">
-
+            {{-- Header --}}
             <div class="header container">
                 <h1 class="text-center h1-custom-font ">Products</h1>
                 <hr class="custom-hr">
             </div>
+            {{-- Filter --}}
             <div class="container filter dropdown">
                 <button class="btn dropdown-toggle custom-btn" type="button" id="dropdownMenuButton1"
                     data-bs-toggle="dropdown">
@@ -133,7 +134,8 @@
                     <li><a class="dropdown-item" href="#">Option 4</a></li>
                 </ul>
             </div>
-            <div class="container custom-product-list">
+            {{-- Product List --}}
+            <div class="container custom-product-list border border-dark rounded-4">
                 <ul>
 
                 </ul>
