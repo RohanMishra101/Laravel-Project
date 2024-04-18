@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+
 </head>
 
 <body>
@@ -136,9 +137,89 @@
             </div>
             {{-- Product List --}}
             <div class="container custom-product-list border border-dark rounded-4">
-                <ul>
+                @foreach ($categories as $category)
+                    @php
+                        $categoryProducts = $productData->where('c_id', $category->id);
+                    @endphp
+                    @if ($categoryProducts->isNotEmpty())
+                        <div class="container mt-5">
+                            <div class="row border border-dark rounded-3">
+                                <div class=" p-3">
+                                    <h2>{{ $category->c_name }}</h2>
+                                    <hr class="w-100">
+                                </div>
+                                @foreach ($categoryProducts as $product)
+                                    <div class="col-md-3">
+                                        <div class="card mb-4"> <!-- Increased margin for better spacing -->
+                                            <img src="{{ asset($product->p_img) }}"
+                                                class=" border border-light rounded card-img-top custom-card-img"
+                                                alt="{{ $product->p_name }}">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $product->p_name }}</h5>
+                                                <p class="card-text">{{ $product->p_description }}</p>
+                                                <p class="card-text"><small class="text-muted">Price:
+                                                        ${{ $product->p_price }}</small></p>
+                                                <p class="card-text"><small class="text-muted">Stock:
+                                                        {{ $product->p_stock }}</small></p>
+                                                {{-- <p class="card-text"><small class="text-muted">Category:
+                                                            {{ $product->c_name }}</small></p> --}}
+                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#EditItemModal"">
+                                                    Add to cart
+                                                </button>
 
-                </ul>
+                                                {{-- Pop up
+                                                <div class="modal fade" id="EditItemModal" tabindex="-1"
+                                                    aria-labelledby="modalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="modalLabel">Add To Card
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                                </button>
+                                                            </div>
+
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-bs-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> --}}
+                                                {{-- <div id="hiddenEditForm-{{ $product->id }}"
+                                                        style="display: none" class="mt-2">
+                                                        <form action="" method="post">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-success">Submit
+                                                                Edit</button>
+                                                        </form>
+                                                    </div> --}}
+
+                                                <button type="button" class="btn btn-danger"
+                                                    onclick="document.getElementById('hiddenDeleteForm-{{ $product->id }}').style.display='block'">
+                                                    Details
+                                                </button>
+                                                {{-- <div id="hiddenDeleteForm-{{ $product->id }}" style="display: none"
+                                                    class="mt-2 text-center">
+                                                    <form action="" method="post">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-warning">Confirm
+                                                            Delete</button>
+                                                    </form>
+                                                </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @else
+                        {{-- <p>No products found in this category.</p> --}}
+                    @endif
+                @endforeach
             </div>
 
         </section>
@@ -152,3 +233,33 @@
 </body>
 
 </html>
+{{-- <div class="container mt-5 border border-dark p-3">
+                                <div>
+                                    <h2>{{ $category->c_name }}</h2>
+                                </div>
+                                @foreach ($categoryProducts as $product)
+                                    <div class=" border border-dark p-3">
+                                        <img src="{{ asset($product->p_img) }}" alt="">
+                                        <p>{{ $product->p_name }}</p>
+                                        <p>{{ $product->p_description }}</p>
+                                        <p>{{ $product->p_price }}</p>
+                                        <p>{{ $product->p_stock }}</p>
+                                        <p>{{ $product->c_name }}</p>
+                                        <button type="submit" id="showEditForm-{{ $product->id }}">Edit</button>
+                                        <button type="submit"
+                                            id="showDeleteForm-{{ $product->id }}">Delete</button>
+                                        <div id="hiddenEditForm-{{ $product->id }}" style="display: none">
+                                            <form action="/productEdit/{{ $product->id }}" method="post">
+                                                @csrf()
+                                                <button type="submit">Submit</button>
+                                            </form>
+                                        </div>
+                                        <div id="hiddenDeleteForm-{{ $product->id }}" style="display: none">
+                                            <form action="/productDelete/{{ $product->id }}" method="post">
+                                                @csrf()
+                                                <button type="submit">Submit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div> --}}

@@ -25,9 +25,8 @@ class ProductController extends Controller
         $products = Product::with('category')->where('store_id', $storeId)->get();
 
         return view('pages.dashboard', [
-            'productData' => $products,
             'categories' => $category,
-
+            'productData' => $products,
         ]);
 
     }
@@ -39,7 +38,6 @@ class ProductController extends Controller
     {
         $userId = session()->get('user')->id;
         $storeId = Store::where('user_id', $userId)->first()->id;
-
 
 
         if ($request->hasFile('p_img')) {

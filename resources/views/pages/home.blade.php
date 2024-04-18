@@ -167,7 +167,18 @@
                                 </div>
                             </div>
                             <!-- Items List -->
-                            <div class="row">
+
+                            {{-- <div class="row">
+                                <div class="col-md-3 col-6 mb-3" *ngFor="let item of items">
+                                    <div class="card">
+                                        <img src="path-to-image" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Item 1</h5>
+                                            <p class="card-text">Description</p>
+                                            <p class="card-text">Price $</p>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-3 col-6 mb-3" *ngFor="let item of items">
                                     <div class="card">
                                         <img src="path-to-image" class="card-img-top" alt="...">
@@ -179,7 +190,13 @@
                                     </div>
                                 </div>
                                 <!-- Repeat for more items -->
+                            </div> --}}
+
+                            <div>
+
                             </div>
+
+
                         </div>
                     </div>
                 </div>
