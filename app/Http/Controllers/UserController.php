@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,9 +13,18 @@ class UserController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $storeData = Store::all();
-        // dd($storeData->toArray());
-        return view('pages.home', ['categories' => $categories]);
+        // $storeData = Store::all();
+        // $product = Product::all();
+        // dd($storeData->toArray()); 
+
+        $store = Store::with('products')->get();
+        // dd($store->toArray());
+        return view('pages.home', [
+            'categories' => $categories,
+            'store' => $store,
+            // 'store' => $storeData,
+            // 'product' => $product,
+        ]);
     }
     public function createAccount()
     {

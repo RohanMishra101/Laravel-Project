@@ -22,4 +22,8 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'c_id');
     }
+    public function store()
+    {
+        return $this->belongsTo(Store::class); // Ensure that Store is correctly namespaced
+    }
 }
