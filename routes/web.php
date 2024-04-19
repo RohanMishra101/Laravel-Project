@@ -45,5 +45,5 @@ Route::post('/productDelete/{id}', [ProductController::class, 'deleteProduct'])-
 
 Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
 
-Route::get('/edit', [ProductController::class, 'editStore'])->name('e_store-editStore');
+Route::get('/edit/{id}', [ProductController::class, 'editStore'])->name('e_store-editStore');
 

@@ -120,26 +120,6 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        {{-- <form action="{{ route('e_store-addProduct') }}" method="post">
-                                            @csrf()
-                                            <label>Product Name</label>
-                                            <input type="text" name="p_name">
-                                            <label>Product Description</label>
-                                            <input type="text" name="p_disc">
-                                            <label>Product Price</label>
-                                            <input type="number" name="p_price">
-                                            <label>Product Stock</label>
-                                            <input type="number" name="p_stock">
-                                            <label>Product Category</label>
-                                            <select name="p_category" id="category" required>
-                                                <option value="" disabled selected>Select a category</option>
-                                                @foreach ($categories as $item)
-                                                    <option value="{{ $item['id'] }}">{{ $item['c_name'] }}</option>
-                                                @endforeach
-                                            </select>
-
-                                            <button type="submit">Submit</button>
-                                        </form> --}}
                                         <form action="{{ route('e_store-addProduct') }}" method="post"
                                             class="needs-validation" enctype="multipart/form-data" novalidate>
                                             @csrf()
@@ -161,15 +141,24 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mb-3">
+                                            {{-- <div class="mb-3">
                                                 <label for="p_disc" class="form-label">Product Description</label>
+                                                <textarea name="p_disc" id="p_disc" cols="30" rows="10" required></textarea>
                                                 <input type="text" class="form-control" id="p_disc"
                                                     name="p_disc" required>
                                                 <div class="invalid-feedback">
                                                     Please provide a description.
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
+                                            <div class="mb-3">
+                                                <label for="p_description" class="form-label fs-5">Product
+                                                    Description</label>
+                                                <textarea class="form-control" name="p_disc" id="p_disc" rows="10"></textarea>
+                                                <div class="invalid-feedback">
+                                                    Please provide a description.
+                                                </div>
+                                            </div>
                                             <div class="mb-3">
                                                 <label for="p_price" class="form-label">Product Price</label>
                                                 <input type="number" class="form-control" id="p_price"
@@ -394,7 +383,7 @@
                         @endphp
 
                         @if ($categoryProducts->isNotEmpty())
-                            <div class="container mt-5">
+                            <div class="container mt-5 mb-2">
                                 <div class="row border border-dark rounded-3">
                                     <div class="p-3">
                                         <h2>{{ $category->c_name }}</h2>
@@ -407,7 +396,7 @@
                                                     class="border border-light rounded card-img-top custom-card-img"
                                                     alt="{{ $product->p_name }}">
                                                 <div class="card-body">
-                                                    <h5>{{ $product->id }}</h5>
+                                                    {{-- <h5>{{ $product->id }}</h5> --}}
                                                     <h5 class="card-title">{{ $product->p_name }}</h5>
                                                     <p class="card-text">{{ $product->p_description }}</p>
                                                     <p class="card-text">
@@ -423,18 +412,16 @@
 
 
                                                     {{-- Edit Btn --}}
-                                                    <form method="GET" action="">
-                                                        <button type="button" class="btn btn-primary edit-button"
-                                                            data-product-id="{{ $product->id }}"
-                                                            id="editProductModal">
-                                                            Edit
-                                                        </button>
-                                                    </form>
+                                                    <div class="d-flex justify-content-around ">
+                                                        <a href="{{ route('e_store-editStore', $product->id) }}"
+                                                            class="btn btn-primary w-100 m-1">Edit</a>
+                                                        <form method="POST"
+                                                            action="{{ route('e_store-deleteProduct', $product->id) }}">
+                                                            @csrf
+                                                            <button class="btn btn-danger w-100 m-1">Delete</button>
+                                                        </form>
+                                                    </div>
 
-                                                    <button type="button" class="btn btn-danger delete-button"
-                                                        data-product-id="{{ $product->id }}">
-                                                        Delete
-                                                    </button>
 
 
 
