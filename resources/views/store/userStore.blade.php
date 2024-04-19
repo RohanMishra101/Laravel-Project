@@ -50,7 +50,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{route('e_store-inCartOrder')}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path
@@ -149,6 +149,7 @@
                                     <hr class="w-100">
                                 </div>
                                 @foreach ($categoryProducts as $product)
+                                    {{-- <p>{{$product->id}}</p> --}}
                                     <div class="col-md-3">
                                         <div class="card mb-4"> <!-- Increased margin for better spacing -->
                                             <img src="{{ asset($product->p_img) }}"
@@ -163,10 +164,15 @@
                                                         {{ $product->p_stock }}</small></p>
                                                 {{-- <p class="card-text"><small class="text-muted">Category:
                                                             {{ $product->c_name }}</small></p> --}}
-                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#EditItemModal"">
+                                                <form action="/orderCreate/{{$product->id}}/{{$storeName}}" method="post">
+                                                    @csrf
+                                                    <label>No.of Orders:</label>
+                                                    <input type="number" name="NoOfOrder" id="NoOfOrder">
+                                                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#EditItemModal">
                                                     Add to cart
-                                                </button>
+                                                    </button>
+                                                </form>
 
                                                 {{-- Pop up
                                                 <div class="modal fade" id="EditItemModal" tabindex="-1"
