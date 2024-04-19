@@ -50,7 +50,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{route('e_store-inCartOrder')}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path
@@ -164,7 +164,7 @@
                                                         {{ $product->p_stock }}</small></p>
                                                 {{-- <p class="card-text"><small class="text-muted">Category:
                                                             {{ $product->c_name }}</small></p> --}}
-                                                <form action="/orderCreate/{{$product->id}}" method="post">
+                                                <form action="/orderCreate/{{$product->id}}/{{$storeName}}" method="post">
                                                     @csrf
                                                     <label>No.of Orders:</label>
                                                     <input type="number" name="NoOfOrder" id="NoOfOrder">

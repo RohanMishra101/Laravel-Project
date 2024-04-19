@@ -44,11 +44,17 @@ Route::post('/productEdit/{id}', [ProductController::class, 'editProduct'])->nam
 
 Route::post('/productDelete/{id}', [ProductController::class, 'deleteProduct'])->name('e_store-deleteProduct');
 
-Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
+Route::get('/inCart', [OrderController::class, 'inCartOrder'])->name('e_store-inCartOrder');
 
-<<<<<<< HEAD
-Route::post('/orderCreate/{id}', [OrderController::class, 'addOrder'])->name('e_store-addOrder');
-=======
+Route::post('/cartItemDelete/{id}', [OrderController::class, 'deleteCartOrder'])->name('e_store-deleteCartOrder');
+
 Route::get('/edit', [ProductController::class, 'editStore'])->name('e_store-editStore');
 
->>>>>>> 1be017ed093fbe35a627cce697313ec3042ed205
+Route::post('/orderCreate/{id}/{storeName}', [OrderController::class, 'addToCart'])->name('e_store-addToCart');
+
+Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
+
+
+
+
+

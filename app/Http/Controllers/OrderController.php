@@ -4,22 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\Store;
 use App\Models\User;
 
 class OrderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
 
-    public function addOrder($id, Request $request)
+    public function addToCart($id,$storeName, Request $request)
     {
         $userId = session()->get('user')->id;
-        $userName = User::where('user_id', $userId)->first()->username;
+        // $storeName = Store::where('id', $userId)->first()->store_name;
         $orderData = [
             'product_id'=>$id,
             'user_id'=>$userId,
@@ -27,23 +23,35 @@ class OrderController extends Controller
         ];
         // dd($orderData);
         Order::create($orderData);
-        return redirect()->route('e_store-storePage', ['storeName' => $userName]);
+        return redirect()->route('e_store-storePage', ['storeName' => $storeName]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function inCartOrder(Request $request)
     {
-        //
+        $userId = session()->get('user')->id;
+        $category = Category::all();
+        $productId = Order::where('user_id', $userId)->pluck('product_id');
+        $cartDetails = Order::where('user_id', $userId)->get();
+        $cartItems = Product::whereIn('id', $productId)->get();
+        return view('cart.cart',[
+            'categories' => $category,
+            // 'cartItems'=>  $productId,
+            'cartItems'=> $cartItems,
+            'cartDetails'=> $cartDetails
+        ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function deleteCartOrder($id)
     {
-        //
+        $product = Order::find($id);
+        $product->delete();
+        return redirect()->route('e_store-inCartOrder');
     }
 
     /**

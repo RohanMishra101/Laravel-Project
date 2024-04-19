@@ -40,6 +40,7 @@ class UserStoreController extends Controller
             'userEmail' => $userEmail,
             'categories' => $category,
             'productData' => $products,
+            'storeName'=> $storeName
         ]);
 
     }
