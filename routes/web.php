@@ -4,6 +4,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserStoreController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 //Home Page
@@ -45,3 +46,4 @@ Route::post('/productDelete/{id}', [ProductController::class, 'deleteProduct'])-
 
 Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
 
+Route::post('/orderCreate/{id}', [OrderController::class, 'addOrder'])->name('e_store-addOrder');
