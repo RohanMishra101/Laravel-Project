@@ -18,4 +18,10 @@ class Store extends Model
         'address',
     ];
 
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+        // Ensure that Product is correctly namespaced
+    }
+
 }

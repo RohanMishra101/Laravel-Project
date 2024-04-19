@@ -167,34 +167,45 @@
                                 </div>
                             </div>
                             <!-- Items List -->
-
-                            {{-- <div class="row">
-                                <div class="col-md-3 col-6 mb-3" *ngFor="let item of items">
-                                    <div class="card">
-                                        <img src="path-to-image" class="card-img-top" alt="...">
+                            <div class="container mt-4">
+                                @foreach ($store as $item)
+                                    <div class="card mb-4">
+                                        <div class="card-header nav justify-content-between ">
+                                            <h1>{{ $item->store_name }}</h1>
+                                            <a href="{{ route('e_store-storePage', $item->store_name) }}"
+                                                target="_blank"
+                                                class="btn btn-primary text-center btn-sm align-self-center p-2">Visit
+                                                Store</a>
+                                        </div>
                                         <div class="card-body">
-                                            <h5 class="card-title">Item 1</h5>
-                                            <p class="card-text">Description</p>
-                                            <p class="card-text">Price $</p>
+                                            <div class="row">
+                                                @foreach ($item->products->take(4) as $product)
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                                        <div class="card h-100 d-flex flex-column">
+                                                            <img src="{{ asset($product->p_img) }}"
+                                                                class="card-img-top" alt="Product Image"
+                                                                style="height: 150px; object-fit: cover;">
+                                                            <div class="card-body d-flex flex-column">
+                                                                <h6 class="card-title">{{ $product->p_name }}</h6>
+                                                                <p class="card-text mb-6">
+                                                                    {{ $product->p_description }}</p>
+                                                                <ul class="list-unstyled mt-auto mb-auto">
+                                                                    <li>Price: ${{ $product->p_price }}</li>
+                                                                    <li>Stock: {{ $product->p_stock }}</li>
+                                                                </ul>
+                                                                <a href="#"
+                                                                    class="btn btn-primary btn-sm mt-auto">Add to
+                                                                    cart</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3 col-6 mb-3" *ngFor="let item of items">
-                                    <div class="card">
-                                        <img src="path-to-image" class="card-img-top" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">Item 1</h5>
-                                            <p class="card-text">Description</p>
-                                            <p class="card-text">Price $</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Repeat for more items -->
-                            </div> --}}
-
-                            <div>
-
+                                @endforeach
                             </div>
+
 
 
                         </div>
