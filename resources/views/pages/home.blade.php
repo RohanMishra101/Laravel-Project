@@ -32,7 +32,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{route('e_store-inCartOrder')}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path
@@ -193,9 +193,18 @@
                                                                     <li>Price: ${{ $product->p_price }}</li>
                                                                     <li>Stock: {{ $product->p_stock }}</li>
                                                                 </ul>
-                                                                <a href="#"
+                                                                <form action="/orderCreate/{{$product->id}}/{{$item->store_name }}" method="post">
+                                                                    @csrf
+                                                                    <label>No.of Orders:</label>
+                                                                    <input type="number" name="NoOfOrder" id="NoOfOrder" style="width: 100px">
+                                                                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
+                                                                    data-bs-target="#EditItemModal">
+                                                                    Add to cart
+                                                                    </button>
+                                                                </form>
+                                                                {{-- <a href="/orderCreate/{{$product->id}}/{{$item->store_name }}"
                                                                     class="btn btn-primary btn-sm mt-auto">Add to
-                                                                    cart</a>
+                                                                    cart</a> --}}
                                                             </div>
                                                         </div>
                                                     </div>
