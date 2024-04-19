@@ -22,11 +22,16 @@ class ProductController extends Controller
         $userId = session()->get('user')->id;
         $storeId = Store::where('user_id', $userId)->first()->id;
         $category = Category::all();
-        $products = Product::with('category')->where('store_id', $storeId)->get();
-
+        $products = Product::with('category')
+            ->where('store_id', $storeId)
+            ->get();
+        // $products = Product::with('product')->get();
+        // dd($products->toArray());
+        $productsByCategory = $products->groupBy('c_id');
+        // dd($productsByCategory->toArray());
         return view('pages.dashboard', [
             'categories' => $category,
-            'productData' => $products,
+            'productsByCategory' => $productsByCategory,
         ]);
 
     }
@@ -38,7 +43,6 @@ class ProductController extends Controller
     {
         $userId = session()->get('user')->id;
         $storeId = Store::where('user_id', $userId)->first()->id;
-
 
         if ($request->hasFile('p_img')) {
             try {
@@ -86,7 +90,6 @@ class ProductController extends Controller
             'p_stock' => $request->p_stock
         ];
         Product::create($productData);
-        // $userId = session()->get('user')->id;
         // $storeId = Store::where('user_id', $userId)->first()->id;
         // $products1 = Product::where('store_id', $storeId)->where('c_id', 1)->get();
         // $products2 = Product::where('store_id', $storeId)->where('c_id', 2)->get();
@@ -98,6 +101,11 @@ class ProductController extends Controller
     }
 
 
+
+    public function editStore()
+    {
+        return view('store.edit');
+    }
     public function editProduct($id, Request $request)
     {
         // dd($id);
