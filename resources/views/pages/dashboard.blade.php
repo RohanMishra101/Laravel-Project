@@ -69,33 +69,7 @@
         <section title="dashboard-section">
             <div>
                 {{-- Body Div --}}
-                {{-- <div>
-                    <div class="add-item">
-                        <button id="showAddItemForm" type="button">Add</button>
-                    </div>
-                    <div id="hiddenDiv" style="display: none">
-                        <form action="{{ route('e_store-addProduct') }}" method="post">
-                            @csrf()
-                            <label>Product Name</label>
-                            <input type="text" name="p_name">
-                            <label>Product Description</label>
-                            <input type="text" name="p_disc">
-                            <label>Product Price</label>
-                            <input type="number" name="p_price">
-                            <label>Product Stock</label>
-                            <input type="number" name="p_stock">
-                            <label>Product Category</label>
-                            <select name="p_category" id="category" required>
-                                <option value="" disabled selected>Select a category</option>
-                                @foreach ($categories as $item)
-                                    <option value="{{ $item['id'] }}">{{ $item['c_name'] }}</option>
-                                @endforeach
-                            </select>
 
-                            <button type="submit">Submit</button>
-                        </form>
-                    </div>
-                </div> --}}
                 <div class="container mt-5">
                     <div class="row">
                         <!-- Card 1  -->
@@ -244,7 +218,7 @@
                 </div>
 
                 {{-- Listing Products --}}
-                <div>
+                {{-- <div>
                     @foreach ($categories as $category)
                         @php
                             $categoryProducts = $productData->where('c_id', $category->id);
@@ -263,20 +237,19 @@
                                                     class=" border border-light rounded card-img-top custom-card-img"
                                                     alt="{{ $product->p_name }}">
                                                 <div class="card-body">
+                                                    <h5>{{ $product->id }}</h5>
                                                     <h5 class="card-title">{{ $product->p_name }}</h5>
                                                     <p class="card-text">{{ $product->p_description }}</p>
                                                     <p class="card-text"><small class="text-muted">Price:
                                                             ${{ $product->p_price }}</small></p>
                                                     <p class="card-text"><small class="text-muted">Stock:
                                                             {{ $product->p_stock }}</small></p>
-                                                    {{-- <p class="card-text"><small class="text-muted">Category:
-                                                            {{ $product->c_name }}</small></p> --}}
-                                                    <button type="button" class="btn btn-primary"
+
+                                                    <a href="" type="button" class="btn btn-primary"
                                                         data-bs-toggle="modal" data-bs-target="#EditItemModal"">
                                                         Edit
-                                                    </button>
+                                                    </a>
 
-                                                    {{-- Pop up --}}
                                                     <div class="modal fade" id="EditItemModal" tabindex="-1"
                                                         aria-labelledby="modalLabel" aria-hidden="true">
                                                         <div class="modal-dialog">
@@ -289,8 +262,7 @@
                                                                     </button>
                                                                 </div>
 
-                                                                {{-- Edit PopUp --}}
-                                                                {{-- <div class="modal-body">
+                                                                <div class="modal-body">
                                                                     <form
                                                                         action="{{ route('e_store-editProduct', $product->id) }}"
                                                                         method="post" class="needs-validation"
@@ -302,8 +274,7 @@
                                                                                 class="form-label">Product Name</label>
                                                                             <input type="text" class="form-control"
                                                                                 id="p_name" name="p_name"
-                                                                                value="{{ $product->p_name }}"
-                                                                                required>
+                                                                                value="{{ $product->id }}" required>
                                                                             <div class="invalid-feedback">
                                                                                 Please provide a product name.
                                                                             </div>
@@ -384,7 +355,7 @@
                                                                         <button type="submit"
                                                                             class="btn btn-primary">Edit</button>
                                                                     </form>
-                                                                </div> --}}
+                                                                </div>
                                                                 <div class="modal-footer">
                                                                     <button type="button" class="btn btn-secondary"
                                                                         data-bs-dismiss="modal">Close</button>
@@ -392,14 +363,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    {{-- <div id="hiddenEditForm-{{ $product->id }}"
-                                                        style="display: none" class="mt-2">
-                                                        <form action="" method="post">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-success">Submit
-                                                                Edit</button>
-                                                        </form>
-                                                    </div> --}}
+
                                                     <button type="button" class="btn btn-danger"
                                                         onclick="document.getElementById('hiddenDeleteForm-{{ $product->id }}').style.display='block'">
                                                         Delete
@@ -419,10 +383,79 @@
                                 </div>
                             </div>
                         @else
-                            {{-- <p>No products found in this category.</p> --}}
                         @endif
                     @endforeach
+                </div> --}}
+
+                <div>
+                    @foreach ($categories as $category)
+                        @php
+                            $categoryProducts = $productsByCategory[$category->id] ?? collect();
+                        @endphp
+
+                        @if ($categoryProducts->isNotEmpty())
+                            <div class="container mt-5">
+                                <div class="row border border-dark rounded-3">
+                                    <div class="p-3">
+                                        <h2>{{ $category->c_name }}</h2>
+                                        <hr class="w-100">
+                                    </div>
+                                    @foreach ($categoryProducts as $product)
+                                        <div class="col-md-3">
+                                            <div class="card mb-4">
+                                                <img src="{{ asset($product->p_img) }}"
+                                                    class="border border-light rounded card-img-top custom-card-img"
+                                                    alt="{{ $product->p_name }}">
+                                                <div class="card-body">
+                                                    <h5>{{ $product->id }}</h5>
+                                                    <h5 class="card-title">{{ $product->p_name }}</h5>
+                                                    <p class="card-text">{{ $product->p_description }}</p>
+                                                    <p class="card-text">
+                                                        <small class="text-muted">Price:
+                                                            ${{ $product->p_price }}
+                                                        </small>
+                                                    </p>
+                                                    <p class="card-text">
+                                                        <small class="text-muted">Stock:
+                                                            {{ $product->p_stock }}
+                                                        </small>
+                                                    </p>
+
+
+                                                    {{-- Edit Btn --}}
+                                                    <form method="GET" action="">
+                                                        <button type="button" class="btn btn-primary edit-button"
+                                                            data-product-id="{{ $product->id }}"
+                                                            id="editProductModal">
+                                                            Edit
+                                                        </button>
+                                                    </form>
+
+                                                    <button type="button" class="btn btn-danger delete-button"
+                                                        data-product-id="{{ $product->id }}">
+                                                        Delete
+                                                    </button>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+
+                    <!-- Include modals here, outside of the loop -->
+                    {{-- @include('partials.edit_modal')
+                    @include('partials.delete_confirm_modal') --}}
                 </div>
+
+
+
+
+
 
             </div>
 
@@ -430,6 +463,34 @@
 
         </section>
     </main>
+
+    {{-- <div>
+                    <div class="add-item">
+                        <button id="showAddItemForm" type="button">Add</button>
+                    </div>
+                    <div id="hiddenDiv" style="display: none">
+                        <form action="{{ route('e_store-addProduct') }}" method="post">
+                            @csrf()
+                            <label>Product Name</label>
+                            <input type="text" name="p_name">
+                            <label>Product Description</label>
+                            <input type="text" name="p_disc">
+                            <label>Product Price</label>
+                            <input type="number" name="p_price">
+                            <label>Product Stock</label>
+                            <input type="number" name="p_stock">
+                            <label>Product Category</label>
+                            <select name="p_category" id="category" required>
+                                <option value="" disabled selected>Select a category</option>
+                                @foreach ($categories as $item)
+                                    <option value="{{ $item['id'] }}">{{ $item['c_name'] }}</option>
+                                @endforeach
+                            </select>
+
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div> --}}
     {{-- Product listing --}}
     {{-- <div>
         <p style="border: 5px solid black">Electronics</p>

@@ -46,4 +46,9 @@ Route::post('/productDelete/{id}', [ProductController::class, 'deleteProduct'])-
 
 Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
 
+<<<<<<< HEAD
 Route::post('/orderCreate/{id}', [OrderController::class, 'addOrder'])->name('e_store-addOrder');
+=======
+Route::get('/edit', [ProductController::class, 'editStore'])->name('e_store-editStore');
+
+>>>>>>> 1be017ed093fbe35a627cce697313ec3042ed205
