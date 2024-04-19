@@ -19,7 +19,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $userId = session()->get('user')->id;
+        if (session()->has('user')) {
+            $userId = session()->get('user')->id;
+        } else {
+            return redirect(route('e_store-login'));
+        }
         $storeId = Store::where('user_id', $userId)->first()->id;
         $category = Category::all();
         $products = Product::with('category')
