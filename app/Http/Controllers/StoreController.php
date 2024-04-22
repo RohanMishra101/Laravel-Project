@@ -30,6 +30,23 @@ class StoreController extends Controller
         return view('pages.createStore', ['categories' => $categories, 'hasStore' => $hasStore]);
 
     }
+
+    public function confirmStore()
+    {
+        if (session()->has('user')) {
+            $userId = session()->get('user')->id;
+            // dd($userId);
+            $storeUserId = Store::where('user_id', $userId)->first();
+            if ($storeUserId) {
+                return redirect(route('e_store-dashboard'));
+            } else {
+                return view('store.storeConfirm');
+            }
+        } else {
+            return redirect(route('e_store-login'));
+        }
+
+    }
     public function storeCreation(Request $request)
     {
         $request->validate([
@@ -81,6 +98,7 @@ class StoreController extends Controller
         // dd($c_id->id);
 
         $user_id = session()->get('user')->id;
+
         // dd("User id " . $user_id);
 
         $storeData = [
@@ -98,13 +116,16 @@ class StoreController extends Controller
             return response('The store already exists');
         } else {
             Store::create($storeData);
-            return view('pages.dashboard');
+            return redirect(route('e_store-dashboard'));
         }
+    }
+    // public function dashboard()
+    // {
 
-    }
-    public function dashboard()
-    {
-        return view('pages.dashboard');
-    }
+    //     // if(){
+
+    //     // }
+    //     return view('pages.dashboard');
+    // }
 }
 // public\store_image

@@ -3,16 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
     public function index()
     {
         $categories = Category::all();
+        $userData = User::where('id', session()->get('user')->id)->first();
+        // dd($userData->toArray());
+        if (session()->has('user')) {
+            $userData = User::where('id', session()->get('user')->id)->first();
+            // dd($userData->toArray());
+        }
         // $storeData = Store::all();
         // $product = Product::all();
         // dd($storeData->toArray()); 
@@ -22,6 +31,7 @@ class UserController extends Controller
         return view('pages.home', [
             'categories' => $categories,
             'store' => $store,
+            'userData' => $userData,
             // 'store' => $storeData,
             // 'product' => $product,
         ]);
@@ -63,7 +73,6 @@ class UserController extends Controller
             'email' => 'required | email | unique:users,email',
             'password' => 'required',
             'confirmPassword' => 'required',
-            'isMerchant' => 'required'
         ]);
 
         if ($request->password == $request->confirmPassword) {
@@ -72,7 +81,7 @@ class UserController extends Controller
                 'username' => $request->username,
                 'email' => $request->email,
                 'password' => bcrypt($request->password),
-                'isMerchant' => $request->isMerchant === 'true' ? true : false,
+
             ];
             // dd($parsedData);
 
@@ -85,6 +94,73 @@ class UserController extends Controller
     public function success()
     {
         return view('auth.login');
+    }
+
+    public function userProfile()
+    {
+        $userData = session()->get('user');
+        $user = User::find($userData->id);
+        // dd($userData->toArray());
+        if ($userData) {
+            return view('pages.profile', ['userData' => $user]);
+        } else {
+            return redirect(route('e_store-login'));
+        }
+    }
+    public function updateProfile($id, Request $request)
+    {
+        $user = User::find($id);
+
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->contact = $request->contact;
+        $user->address = $request->address;
+
+
+        if ($request->hasFile('img')) {
+            try {
+                $image = $request->img;
+                $originalExtension = $image->getClientOriginalExtension();
+                $providedFilename = Str::slug($request->input('username'), '_');
+                $newFilename = "{$providedFilename}.{$originalExtension}";
+
+                // Use the absolute path to the public/store_image directory
+                $destinationPath = public_path('user_image');
+
+                // Ensure the directory exists
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0755, true);
+                }
+
+                // Check for existing files and append a counter to the filename if needed
+                $finalFilename = $newFilename;
+                $counter = 1;
+                while (file_exists($destinationPath . '/' . $finalFilename)) {
+                    $finalFilename = "{$providedFilename}_{$counter}.{$originalExtension}";
+                    $counter++;
+                }
+
+                // Move the file to the public/store_image directory
+                $image->move($destinationPath, $finalFilename);
+
+                // URL path to access the image via the web
+                $urlPath = asset('user_image/' . $finalFilename);
+
+                $request->img = $urlPath;
+                $user->img = $request->img;
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+                return back()->with('error', 'An error occurred while uploading the image');
+            }
+        } else {
+            if (!empty($request->img)) {
+                $user->img = $request->img;
+            }
+        }
+        // dd($user->img);
+        $user->update();
+        return redirect(route('e_store-userProfile'));
+
     }
     public function logout()
     {
