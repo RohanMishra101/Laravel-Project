@@ -9,6 +9,22 @@
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <style>
+        .custom-profile-img-div {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        .custom-profile-img {
+            /* border: 5px solid black; */
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +48,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('e_store-inCartOrder')}}">
+                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path
@@ -56,11 +72,26 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('images/profile.png') }}" alt="Profile Image"
-                                        style="height: 40px; width: 40px">
+                                    @if (session()->has('user'))
+                                        @if ($userData->img == !null)
+                                            <div class="custom-profile-img-div">
+                                                <img src="{{ asset($userData->img) }}" alt="userProfile"
+                                                    class="custom-profile-img">
+                                            </div>
+                                        @else
+                                            <div class="custom-profile-img-div">
+                                                <img src="{{ asset('images/profile.png') }}" alt="userProfile"
+                                                    class="custom-profile-img">
+                                            </div>
+                                        @endif
+                                    @else
+                                        <div class="custom-profile-img-div">
+                                            <img src="{{ asset('images/profile.png') }}" alt="userProfile"
+                                                class="custom-profile-img">
+                                        </div>
+                                    @endif
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    {{-- <li>{{ session()->get('user')->username }}</li> --}}
                                     <li class="text-center">
                                         @if (session()->has('user'))
                                             <div>
@@ -72,8 +103,12 @@
                                             <a href="{{ route('e_store-login') }}">LOG IN</a>
                                         @endif
                                     </li>
-                                    <li><a class="dropdown-item" href="#">View Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('e_store-dashboard') }}">Store</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('e_store-userProfile') }}">View
+                                            Profile</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('e_store-storeConfirm') }}">Store</a>
+                                    </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-logout') }}">Log Out</a></li>
                                 </ul>
                             </li>
@@ -193,13 +228,17 @@
                                                                     <li>Price: ${{ $product->p_price }}</li>
                                                                     <li>Stock: {{ $product->p_stock }}</li>
                                                                 </ul>
-                                                                <form action="/orderCreate/{{$product->id}}/{{$item->store_name }}" method="post">
+                                                                <form
+                                                                    action="/orderCreate/{{ $product->id }}/{{ $item->store_name }}"
+                                                                    method="post">
                                                                     @csrf
                                                                     <label>No.of Orders:</label>
-                                                                    <input type="number" name="NoOfOrder" id="NoOfOrder" style="width: 100px">
-                                                                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                                                                    data-bs-target="#EditItemModal">
-                                                                    Add to cart
+                                                                    <input type="number" name="NoOfOrder"
+                                                                        id="NoOfOrder" style="width: 100px">
+                                                                    <button type="submit" class="btn btn-primary"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#EditItemModal">
+                                                                        Add to cart
                                                                     </button>
                                                                 </form>
                                                                 {{-- <a href="/orderCreate/{{$product->id}}/{{$item->store_name }}"
