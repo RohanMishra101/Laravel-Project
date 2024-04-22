@@ -17,7 +17,9 @@ return new class extends Migration {
             $table->string('password');
             $table->string('contact')->nullable();
             $table->string('address')->nullable();
-            $table->boolean('isMerchant')->default(false);
+            $table->string('img')->nullable();
+
+            // $table->boolean('isMerchant')->default(false);
             $table->timestamps();
         });
     }

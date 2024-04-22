@@ -19,25 +19,31 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $category = Category::all();
         if (session()->has('user')) {
             $userId = session()->get('user')->id;
+            // $user_id = session()->get('user')->id;
+            $store = Store::where('user_id', $userId)->first();
+            // dd($store->toArray());
+            if (!$store) {
+                return redirect(route('e_store-storeConfirm'));
+            } else {
+                $storeId = Store::where('user_id', $userId)->first()->id;
+                $products = Product::with('category')
+                    ->where('store_id', $storeId)
+                    ->get();
+                // $products = Product::with('product')->get();
+                // dd($products->toArray());
+                $productsByCategory = $products->groupBy('c_id');
+                // dd($productsByCategory->toArray());
+                return view('pages.dashboard', [
+                    'categories' => $category,
+                    'productsByCategory' => $productsByCategory,
+                ]);
+            }
         } else {
             return redirect(route('e_store-login'));
         }
-        $storeId = Store::where('user_id', $userId)->first()->id;
-        $category = Category::all();
-        $products = Product::with('category')
-            ->where('store_id', $storeId)
-            ->get();
-        // $products = Product::with('product')->get();
-        // dd($products->toArray());
-        $productsByCategory = $products->groupBy('c_id');
-        // dd($productsByCategory->toArray());
-        return view('pages.dashboard', [
-            'categories' => $category,
-            'productsByCategory' => $productsByCategory,
-        ]);
-
     }
 
     /**
@@ -94,13 +100,6 @@ class ProductController extends Controller
             'p_stock' => $request->p_stock
         ];
         Product::create($productData);
-        // $storeId = Store::where('user_id', $userId)->first()->id;
-        // $products1 = Product::where('store_id', $storeId)->where('c_id', 1)->get();
-        // $products2 = Product::where('store_id', $storeId)->where('c_id', 2)->get();
-        // $products3 = Product::where('store_id', $storeId)->where('c_id', 3)->get();
-        // $products4 = Product::where('store_id', $storeId)->where('c_id', 4)->get();
-        // $products5 = Product::where('store_id', $storeId)->where('c_id', 5)->get();
-        // return view('pages.dashboard', ['storeId' => $storeId, 'userId' => $userId, 'categories' => $category, 'products1' => $products1, 'products2' => $products2, 'products3' => $products3, 'products4' => $products4, 'products5' => $products5]);
         return redirect(route('e_store-dashboard'));
     }
 

@@ -110,6 +110,7 @@
                         </div>
 
                         {{-- Pop up --}}
+
                         <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="modalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
@@ -242,10 +243,6 @@
                                                             <button class="btn btn-danger w-100 m-1">Delete</button>
                                                         </form>
                                                     </div>
-
-
-
-
                                                 </div>
                                             </div>
                                         </div>
