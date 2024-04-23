@@ -168,7 +168,7 @@ class UserController extends Controller
         if (session()->has('user')) {
             session()->forget('user');
         }
-        return redirect(route('e_store-Home'));
+        return redirect(route('e_store-login'));
     }
 
 }
