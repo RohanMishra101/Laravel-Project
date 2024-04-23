@@ -100,9 +100,9 @@ class UserController extends Controller
     public function userProfile()
     {
         $userData = session()->get('user');
-        $user = User::find($userData->id);
         // dd($userData->toArray());
         if ($userData) {
+            $user = User::find($userData->id);
             return view('pages.profile', ['userData' => $user]);
         } else {
             return redirect(route('e_store-login'));
