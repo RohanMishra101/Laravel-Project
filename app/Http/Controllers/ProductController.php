@@ -121,7 +121,7 @@ class ProductController extends Controller
     {
         // dd($id);
         $product = Product::find($id);
-        dd($product->toArray());
+        // dd($product->toArray());
         $product->p_img = $request->p_img;
         $product->c_id = $request->p_category;
         $product->p_name = $request->p_name;

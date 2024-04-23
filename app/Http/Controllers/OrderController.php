@@ -71,10 +71,11 @@ class OrderController extends Controller
         $userId = session()->get('user')->id;
         $storeId = Store::where('user_id', $userId)->first()->id;
         $category = Category::all();
+        $user = User::all();
         $products = Product::with('category')
             ->where('store_id', $storeId)->get();
         $productIds = $products->pluck('id')->toArray();
-        $orders = Order::whereIn('product_id', $productIds)->where('order_confirm', true)->get();
+        $orders = Order::whereIn('product_id', $productIds)->where('order_confirm', true)->where('order_sent', false)->get();
         // Create an empty array to store product details
         $orderedProducts = [];
 
@@ -90,18 +91,60 @@ class OrderController extends Controller
         //dd($orderedProducts);
         // dd($orders);
         // $orderedProducts=Product::whereIn('id',$orders->product_id)->get();
-        return view('pages.testOrders', [
+        return view('pages.listConfirmOrders', [
             'categories' => $category,
             'products' => $orderedProducts,
-            'orders' => $orders
+            'orders' => $orders,
+            'users' => $user
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function sendOrder($id, $no)
     {
-        //
+        $order=Order::find($id);
+        $order->order_sent= TRUE;
+        $order->update();
+        $productId=$order->product_id;
+        $productStock=Product::where('id', $productId);
+        $productStock->p_stock=$productStock->p_stock-$no;
+        // $productStock->update();
+        return view(dd($productStock));
+        // return redirect()->route('e_store-listConfirmOrder');
+    }
+
+    public function listSentOrder()
+    {
+        $userId = session()->get('user')->id;
+        $storeId = Store::where('user_id', $userId)->first()->id;
+        $category = Category::all();
+        $user = User::all();
+        $products = Product::with('category')
+            ->where('store_id', $storeId)->get();
+        $productIds = $products->pluck('id')->toArray();
+        $orders = Order::whereIn('product_id', $productIds)->where('order_confirm', true)->where('order_sent', true)->get();
+        // Create an empty array to store product details
+        $orderedProducts = [];
+
+        // Loop through each order and retrieve the product details
+        foreach ($orders as $order) {
+            $productId = $order->product_id;
+            $product = Product::find($productId);
+            if ($product) {
+                $orderedProducts[] = $product;
+            }
+        }
+
+        //dd($orderedProducts);
+        // dd($orders);
+        // $orderedProducts=Product::whereIn('id',$orders->product_id)->get();
+        return view('pages.listSentOrders', [
+            'categories' => $category,
+            'products' => $orderedProducts,
+            'orders' => $orders,
+            'users' => $user
+        ]);
     }
 }
