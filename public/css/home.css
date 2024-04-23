@@ -134,3 +134,30 @@
     height: 200px;
     object-fit: cover;
 }
+
+/* Edit */
+/* center div */
+.custom-center {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-primary-btn-color {
+    background-color: #38aee0;
+}
+.custom-secondary-btn-color {
+    background-color: #0fa838;
+}
+
+/* Long Hr */
+.custom-long-hr {
+    border-radius: 50px;
+    border: 4px solid black;
+    opacity: 100%;
+    background: #000;
+    width: 50%;
+    margin: 0 auto;
+}
