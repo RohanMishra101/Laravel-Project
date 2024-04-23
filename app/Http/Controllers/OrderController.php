@@ -12,16 +12,22 @@ use App\Models\User;
 class OrderController extends Controller
 {
 
-    public function addToCart($id,$storeName, Request $request)
+    public function addToCart($id, $storeName, Request $request)
     {
         $userId = session()->get('user')->id;
         // $storeName = Store::where('id', $userId)->first()->store_name;
+
+        $request->validate([
+            'NoOfOrder' => 'required',
+        ]);
+
         $orderData = [
-            'product_id'=>$id,
-            'user_id'=>$userId,
-            'no_of_orders'=>$request->NoOfOrder
+            'product_id' => $id,
+            'user_id' => $userId,
+            'no_of_orders' => $request->NoOfOrder
         ];
         // dd($orderData);
+
         Order::create($orderData);
         return redirect()->route('e_store-storePage', ['storeName' => $storeName]);
     }
@@ -36,11 +42,11 @@ class OrderController extends Controller
         $productId = Order::where('user_id', $userId)->pluck('product_id');
         $cartDetails = Order::where('user_id', $userId)->get();
         $cartItems = Product::whereIn('id', $productId)->get();
-        return view('cart.cart',[
+        return view('cart.cart', [
             'categories' => $category,
             // 'cartItems'=>  $productId,
-            'cartItems'=> $cartItems,
-            'cartDetails'=> $cartDetails
+            'cartItems' => $cartItems,
+            'cartDetails' => $cartDetails
         ]);
     }
 
@@ -59,7 +65,8 @@ class OrderController extends Controller
      */
     public function confirmCartOrder($id)
     {
-        $cartDetails =  Order::where('id', $id)->update(['order_confirm' => true]);;
+        $cartDetails = Order::where('id', $id)->update(['order_confirm' => true]);
+        ;
         return redirect()->route('e_store-inCartOrder');
     }
 
