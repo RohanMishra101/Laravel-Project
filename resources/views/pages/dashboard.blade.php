@@ -84,7 +84,7 @@
                         <div class="col-md-4 mt-5">
                             <div class="card border border-dark p-5 custom-card">
                                 <div class="card-body d-flex align-items-center justify-content-center">
-                                    <h1>Card 2</h1>
+                                    <a href="{{ route('e_store-listSentOrder') }}"><h1>Card 2</h1></a>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         <div class="col-md-4 mt-5">
                             <div class="card border border-dark p-5 custom-card">
                                 <div class="card-body d-flex align-items-center justify-content-center">
-                                    <h1>Card 3</h1>
+                                    <a href="{{ route('e_store-listConfirmOrder') }}"><h1>Card 3</h1></a>
                                 </div>
                             </div>
                         </div>
