@@ -258,6 +258,20 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
+
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function(event) {
+            const file = event.target.files[0]; // Get the file from the input
+            if (file) {
+                const reader = new FileReader(); // Create a FileReader
+                reader.onload = function(e) {
+                    const imgElement = document.getElementById('productImage'); // Select the image element
+                    imgElement.src = e.target.result; // Set the src to the file content
+                };
+                reader.readAsDataURL(file); // Read the file as a data URL
+            }
+        });
+    </script>
     {{-- <script>
         document.getElementById("showAddItemForm").addEventListener("click", function() {
             //   var div = document.getElementById("hiddenDiv");

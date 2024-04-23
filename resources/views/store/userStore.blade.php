@@ -10,6 +10,19 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
+    <style>
+        .custom-profile-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,7 +63,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('e_store-inCartOrder')}}">
+                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}" target="_blank">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path
@@ -72,28 +85,39 @@
                             </li>
                             <!-- Dropdown menu -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="{{ asset('images/profile.png') }}" alt="Profile Image"
-                                        style="height: 40px; width: 40px">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                    id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    @if (session()->has('user'))
+                                        @if ($userData->img)
+                                            <img src="{{ asset($userData->img) }}" alt="userProfile"
+                                                class="custom-profile-img me-2">
+                                        @else
+                                            <img src="{{ asset('images/profile.png') }}" alt="userProfile"
+                                                class="custom-profile-img me-2">
+                                        @endif
+                                    @else
+                                        <img src="{{ asset('images/profile.png') }}" alt="userProfile"
+                                            class="custom-profile-img me-2">
+                                    @endif
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    {{-- <li>{{ session()->get('user')->username }}</li> --}}
-                                    <li>
-                                        <a href="#">
-                                            @if (session()->has('user'))
-                                                <p class="p-tag">{{ session()->get('user')->username }}</p>
-
-                                                {{-- <p>{{ $userEmail }}</p> --}}
-                                            @else
-                                                <a href="{{ route('e_store-login') }}" class="">CREATE ACCOUNT |
-                                                    LOG IN</a>
-                                            @endif
-                                        </a>
+                                    <li class="text-center">
+                                        @if (session()->has('user'))
+                                            <div>
+                                                <p class="p-tag">
+                                                    {{ session()->get('user')->username }}
+                                                </p>
+                                            </div>
+                                        @else
+                                            <a href="{{ route('e_store-login') }}">LOG IN</a>
+                                        @endif
                                     </li>
-                                    <li><a class="dropdown-item" href="#">View Profile</a></li>
-                                    <li><a class="dropdown-item" href="#">Store</a></li>
-                                    <li><a class="dropdown-item" href="#">Log Out</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('e_store-userProfile') }}">View
+                                            Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('e_store-storeConfirm') }}">Store</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('e_store-logout') }}">Log Out</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -110,7 +134,9 @@
                         <input type="text" name="search" id="search" class="form-control fs-3"
                             placeholder="Search">
                         <button class="btn btn-primary fs-3" type="submit"
-                            style="background-color: #38AEE0; border-color: #38AEE0;">Search</button>
+                            style="background-color: #38AEE0; border-color: #38AEE0;">
+                            Search
+                        </button>
                     </div>
                 </form>
             </div>
@@ -136,7 +162,7 @@
                 </ul>
             </div>
             {{-- Product List --}}
-            <div class="container custom-product-list border border-dark rounded-4">
+            <div class="container custom-product-list custom-border">
                 @foreach ($categories as $category)
                     @php
                         $categoryProducts = $productData->where('c_id', $category->id);
@@ -164,13 +190,14 @@
                                                         {{ $product->p_stock }}</small></p>
                                                 {{-- <p class="card-text"><small class="text-muted">Category:
                                                             {{ $product->c_name }}</small></p> --}}
-                                                <form action="/orderCreate/{{$product->id}}/{{$storeName}}" method="post">
+                                                <form action="/orderCreate/{{ $product->id }}/{{ $storeName }}"
+                                                    method="post">
                                                     @csrf
                                                     <label>No.of Orders:</label>
                                                     <input type="number" name="NoOfOrder" id="NoOfOrder">
-                                                    <button type="submit" class="btn btn-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#EditItemModal">
-                                                    Add to cart
+                                                    <button type="submit" class="btn btn-primary"
+                                                        data-bs-toggle="modal" data-bs-target="#EditItemModal">
+                                                        Add to cart
                                                     </button>
                                                 </form>
 

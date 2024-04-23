@@ -46,7 +46,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}">
+                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}" target="_blank">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path
@@ -214,10 +214,11 @@
                                                                 style="height: 150px; object-fit: cover;">
                                                             <div class="card-body d-flex flex-column">
                                                                 <h6 class="card-title">{{ $product->p_name }}</h6>
-                                                                <p class="card-text mb-6">
+                                                                <p class="card-text mb-6 overflow-hidden"
+                                                                    style="height: 50px;">
                                                                     {{ $product->p_description }}</p>
                                                                 <ul class="list-unstyled mt-auto mb-auto">
-                                                                    <li>Price: ${{ $product->p_price }}</li>
+                                                                    <li>Price: रु{{ $product->p_price }}</li>
                                                                     <li>Stock: {{ $product->p_stock }}</li>
                                                                 </ul>
                                                                 {{-- <form

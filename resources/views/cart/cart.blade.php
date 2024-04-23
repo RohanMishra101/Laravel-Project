@@ -25,11 +25,16 @@
 
     <main>
         <section>
-            <div class="container text-center">
-                <h1>
-                    Cart
-                </h1>
-                <hr class="custom-hr">
+            <div class="container d-flex justify-content-center align-items-end">
+                <div class="col-md-9">
+                    <h1 class=" text-center" style="font-size: 5rem; font-weight: bolder">
+                        Cart
+                    </h1>
+                    <hr class="custom-hr">
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-dark btn-custom" href="{{ route('e_store-Home') }}">Home</a>
+                </div>
             </div>
             <div class="container custom-product-list ">
                 @foreach ($categories as $category)
