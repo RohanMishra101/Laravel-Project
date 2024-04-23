@@ -79,7 +79,7 @@
                 </div>
             </div>
         </section> --}}
-
+        {{-- Edit Profile --}}
         <section>
             <div
                 class="container min-vh-100 border border-dark d-flex flex-column justify-content-start align-items-center">
@@ -140,15 +140,100 @@
                     </form>
                 </div>
                 {{-- <hr class="custom-long-hr"> --}}
-
-                <div class="text-center p-4 w-100  mt-5">
-                    <div class="mb-3">
-                        <h1 class="mb-3">Transaction Method</h1>
-                        <hr class="custom-hr ">
+                <div class="custom-border col-10 d-flex flex-column align-items-center">
+                    {{-- <div class="text-center p-4 w-100 mt-5">
+                        <div class="mb-3">
+                            <h1 class="mb-3">Transaction Method</h1>
+                            <hr class="custom-hr ">
+                        </div>
                     </div>
+                    <div class="container-fluid  w-100 p-5">
+                        <form class="col-12" method="POST" action="">
+                            @csrf
+                            <div class="row">
+                                <div class="container d-flex flex-column align-items-center justify-content-center">
+                                    <div class="container w-100 mb-4">
+                                        <div class="form-group col-md-5">
+                                            <input type="text" class="form-control" placeholder="Name" name="name"
+                                                value="" required>
+                                        </div>
+                                    </div>
+                                    <div class="container d-flex justify-content-between mb-3">
+                                        <div class="form-group col-md-5 ">
+                                            <input type="number" class="form-control" placeholder="Card No."
+                                                name="cardNo" value="">
+                                        </div>
+                                        make sure to make it only 3 numbers
+                                        <div class="form-group col-md-5 ">
+                                            <input type="number" class="form-control" placeholder="CVV" name="cvv"
+                                                value="">
+                                        </div>
+                                    </div>
+                                    <div class="container d-flex justify-content-between mb-5">
+                                        <div class="form-group col-md-5">
+                                            <input type="date" class="form-control" placeholder="expiry date"
+                                                name="date" value="">
+                                        </div>
+                                        <div class="form-group col-md-5">
+                                            <input type="text" class="form-control" placeholder="Address"
+                                                name="address" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group d-flex justify-content-center ">
+                                <button class="btn btn-success col-3 fs-5">
+                                    Save
+                                </button>
+                            </div>
+                        </form>
+
+                    </div> --}}
+                    <div class="col-md-10 col-sm-12">
+                        <div class="text-center p-4">
+                            <div class="mb-3">
+                                <h1>Transaction Method</h1>
+                                <hr class="custom-hr">
+                            </div>
+                        </div>
+                        <div class="container-fluid p-4">
+                            <form class="row" method="POST" action="">
+                                @csrf
+                                <div class="col-md-12">
+                                    <div class="mb-4">
+                                        <input type="text" class="form-control" placeholder="Name" name="name"
+                                            value="" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <input type="number" class="form-control" placeholder="Card No." name="cardNo"
+                                        value="">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <input type="number" class="form-control" placeholder="CVV" name="cvv"
+                                        value="">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <input type="date" class="form-control" placeholder="Expiry Date" name="date"
+                                        value="">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <input type="text" class="form-control" placeholder="Address" name="address"
+                                        value="">
+                                </div>
+                                <div class="col-12 mt-4 justify-content-center d-flex">
+                                    <button class="btn btn-success col-4" type="submit">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+
         </section>
+
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
