@@ -26,7 +26,7 @@
                 $categoryProducts = $cartItems->where('c_id', $category->id);
             @endphp
             @if($categoryProducts->isNotEmpty())
-            <div class="container mt-5">
+            <div class="container mt-5" style="margin-bottom: 20px">
                 <div class="row border border-dark rounded-3">
                     <div class=" p-3">
                         <h2>{{ $category->c_name }}</h2>
@@ -47,8 +47,14 @@
                                     @foreach ($cartDetails as $details)
                                     @if($details->product_id== $product->id)
                                         <p class="card-text"><small class="text-muted">No. Of Orders:{{ $details->no_of_orders}}</small></p>
-                                        <button type="submit" id="showEditForm-{{ $details['id'] }}">Confirm</button>
-                                        <button type="submit" id="showDeleteForm-{{ $details['id'] }}">Delete</button>
+                                        @if($details['order_confirm']==0)
+                                        <form action="/cartItemConfirm/{{ $details['id'] }}" method="post" style="display: inline">
+                                            @csrf
+                                            <button type="submit" id="showConfirm-{{ $details['order_confirm'] }}"class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#EditItemModal">Confirm</button>
+                                        </form>
+                                        @endif
+                                        <button type="submit" id="showDeleteForm-{{ $details['id'] }}" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#EditItemModal">Delete</button>
                                         <div id="hiddenDeleteForm-{{ $details['id'] }}" style="display: none">
                                             <form action="/cartItemDelete/{{ $details['id'] }}" method="post">
                                                 @csrf()
@@ -87,6 +93,7 @@
             var div = document.getElementById(a);
             div.style.display = (div.style.display === "none") ? "block" : "none";
         }
+
     </script>
 </body>
 </html>
