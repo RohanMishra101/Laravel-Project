@@ -44,6 +44,7 @@ class ProductController extends Controller
         } else {
             return redirect(route('e_store-login'));
         }
+
     }
 
     /**
@@ -100,85 +101,35 @@ class ProductController extends Controller
             'p_stock' => $request->p_stock
         ];
         Product::create($productData);
+        // $storeId = Store::where('user_id', $userId)->first()->id;
+        // $products1 = Product::where('store_id', $storeId)->where('c_id', 1)->get();
+        // $products2 = Product::where('store_id', $storeId)->where('c_id', 2)->get();
+        // $products3 = Product::where('store_id', $storeId)->where('c_id', 3)->get();
+        // $products4 = Product::where('store_id', $storeId)->where('c_id', 4)->get();
+        // $products5 = Product::where('store_id', $storeId)->where('c_id', 5)->get();
+        // return view('pages.dashboard', ['storeId' => $storeId, 'userId' => $userId, 'categories' => $category, 'products1' => $products1, 'products2' => $products2, 'products3' => $products3, 'products4' => $products4, 'products5' => $products5]);
         return redirect(route('e_store-dashboard'));
     }
 
 
 
-    public function editStore($id)
+    public function editStore()
     {
-        // dd($id);
-        $categories = Category::all();
-        $product = Product::find($id);
-        // dd($product->toArray());
-        return view('store.edit', [
-            'product' => $product,
-            'categories' => $categories
-        ]);
+        return view('store.edit');
     }
     public function editProduct($id, Request $request)
     {
+        // dd($id);
         $product = Product::find($id);
-        // dd($product->toArray());
-        $product->c_id = $request->c_id;
+        dd($product->toArray());
+        $product->p_img = $request->p_img;
+        $product->c_id = $request->p_category;
         $product->p_name = $request->p_name;
         $product->p_description = $request->p_disc;
         $product->p_price = $request->p_price;
         $product->p_stock = $request->p_stock;
 
-        if ($request->hasFile('p_img')) {
-            try {
-                $image = $request->p_img;
-                $originalExtension = $image->getClientOriginalExtension();
-                $providedFilename = Str::slug($request->input('p_name'), '_');
-                $newFilename = "{$providedFilename}.{$originalExtension}";
-
-                // Use the absolute path to the public/store_image directory
-                $destinationPath = public_path('product_image');
-
-                // Ensure the directory exists
-                if (!File::exists($destinationPath)) {
-                    File::makeDirectory($destinationPath, 0755, true);
-                }
-
-                // Check for existing files and append a counter to the filename if needed
-                $finalFilename = $newFilename;
-                $counter = 1;
-                while (file_exists($destinationPath . '/' . $finalFilename)) {
-                    $finalFilename = "{$providedFilename}_{$counter}.{$originalExtension}";
-                    $counter++;
-                }
-
-                // Move the file to the public/store_image directory
-                $image->move($destinationPath, $finalFilename);
-
-                // URL path to access the image via the web
-                $urlPath = asset('product_image/' . $finalFilename);
-
-                $request->p_img = $urlPath;
-                $product->p_img = $request->p_img;
-            } catch (\Exception $e) {
-                Log::error($e->getMessage());
-                return back()->with('error', 'An error occurred while uploading the image');
-            }
-        } else {
-            $request->p_img = $product->p_img;
-            // dd($request->p_img);
-        }
-
         $product->update();
-        return redirect(route('e_store-dashboard'));
-
-    }
-
-    public function deleteProduct($id)
-    {
-        $product = Product::find($id);
-        // dd($product->toArray());
-        $product->delete();
-
-        return redirect(route('e_store-dashboard'));
-
         // $category = Category::all();
         // $userId = session()->get('user')->id;
         // $storeId = Store::where('user_id', $userId)->first()->id;
@@ -188,6 +139,25 @@ class ProductController extends Controller
         // $products4 = Product::where('store_id', $storeId)->where('c_id', 4)->get();
         // $products5 = Product::where('store_id', $storeId)->where('c_id', 5)->get();
         // return view('pages.dashboard', ['storeId' => $storeId, 'userId' => $userId, 'categories' => $category, 'products1' => $products1, 'products2' => $products2, 'products3' => $products3, 'products4' => $products4, 'products5' => $products5]);
+
+        // return redirect(route('pro'));
+        return redirect(route('e_store-dashboard'));
+
+    }
+
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+        $product->delete();
+        $category = Category::all();
+        $userId = session()->get('user')->id;
+        $storeId = Store::where('user_id', $userId)->first()->id;
+        $products1 = Product::where('store_id', $storeId)->where('c_id', 1)->get();
+        $products2 = Product::where('store_id', $storeId)->where('c_id', 2)->get();
+        $products3 = Product::where('store_id', $storeId)->where('c_id', 3)->get();
+        $products4 = Product::where('store_id', $storeId)->where('c_id', 4)->get();
+        $products5 = Product::where('store_id', $storeId)->where('c_id', 5)->get();
+        return view('pages.dashboard', ['storeId' => $storeId, 'userId' => $userId, 'categories' => $category, 'products1' => $products1, 'products2' => $products2, 'products3' => $products3, 'products4' => $products4, 'products5' => $products5]);
     }
 
     /**
