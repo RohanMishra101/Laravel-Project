@@ -19,20 +19,31 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $userId = session()->get('user')->id;
-        $storeId = Store::where('user_id', $userId)->first()->id;
         $category = Category::all();
-        $products = Product::with('category')
-            ->where('store_id', $storeId)
-            ->get();
-        // $products = Product::with('product')->get();
-        // dd($products->toArray());
-        $productsByCategory = $products->groupBy('c_id');
-        // dd($productsByCategory->toArray());
-        return view('pages.dashboard', [
-            'categories' => $category,
-            'productsByCategory' => $productsByCategory,
-        ]);
+        if (session()->has('user')) {
+            $userId = session()->get('user')->id;
+            // $user_id = session()->get('user')->id;
+            $store = Store::where('user_id', $userId)->first();
+            // dd($store->toArray());
+            if (!$store) {
+                return redirect(route('e_store-storeConfirm'));
+            } else {
+                $storeId = Store::where('user_id', $userId)->first()->id;
+                $products = Product::with('category')
+                    ->where('store_id', $storeId)
+                    ->get();
+                // $products = Product::with('product')->get();
+                // dd($products->toArray());
+                $productsByCategory = $products->groupBy('c_id');
+                // dd($productsByCategory->toArray());
+                return view('pages.dashboard', [
+                    'categories' => $category,
+                    'productsByCategory' => $productsByCategory,
+                ]);
+            }
+        } else {
+            return redirect(route('e_store-login'));
+        }
 
     }
 
