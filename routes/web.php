@@ -46,7 +46,11 @@ Route::post('/productDelete/{id}', [ProductController::class, 'deleteProduct'])-
 
 Route::get('/inCart', [OrderController::class, 'inCartOrder'])->name('e_store-inCartOrder');
 
+Route::post('/cartItemConfirm/{id}', [OrderController::class, 'confirmCartOrder'])->name('e_store-confirmCartOrder');
+
 Route::post('/cartItemDelete/{id}', [OrderController::class, 'deleteCartOrder'])->name('e_store-deleteCartOrder');
+
+Route::get('/testOrder', [OrderController::class, 'listOrder'])->name('e_store-lsitConfirmOrder');
 
 Route::get('/edit', [ProductController::class, 'editStore'])->name('e_store-editStore');
 

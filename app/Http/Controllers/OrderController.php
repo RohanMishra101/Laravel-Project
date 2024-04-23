@@ -57,17 +57,44 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function confirmCartOrder($id)
     {
-        //
+        $cartDetails =  Order::where('id', $id)->update(['order_confirm' => true]);;
+        return redirect()->route('e_store-inCartOrder');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function listOrder()
     {
-        //
+        $userId = session()->get('user')->id;
+        $storeId = Store::where('user_id', $userId)->first()->id;
+        $category = Category::all();
+        $products = Product::with('category')
+            ->where('store_id', $storeId)->get();
+        $productIds = $products->pluck('id')->toArray();
+        $orders = Order::whereIn('product_id', $productIds)->where('order_confirm', true)->get();
+        // Create an empty array to store product details
+        $orderedProducts = [];
+
+        // Loop through each order and retrieve the product details
+        foreach ($orders as $order) {
+            $productId = $order->product_id;
+            $product = Product::find($productId);
+            if ($product) {
+                $orderedProducts[] = $product;
+            }
+        }
+
+        //dd($orderedProducts);
+        // dd($orders);
+        // $orderedProducts=Product::whereIn('id',$orders->product_id)->get();
+        return view('pages.testOrders', [
+            'categories' => $category,
+            'products' => $orderedProducts,
+            'orders' => $orders
+        ]);
     }
 
     /**
