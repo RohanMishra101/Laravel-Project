@@ -16,25 +16,26 @@ class UserController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $userData = User::where('id', session()->get('user')->id)->first();
-        // dd($userData->toArray());
+        $store = Store::with('products')->get();
+
         if (session()->has('user')) {
             $userData = User::where('id', session()->get('user')->id)->first();
-            // dd($userData->toArray());
+            return view('pages.home', [
+                'categories' => $categories,
+                'store' => $store,
+                'userData' => $userData,
+            ]);
+        } else {
+            return view('pages.home', [
+                'categories' => $categories,
+                'store' => $store,
+            ]);
         }
         // $storeData = Store::all();
         // $product = Product::all();
         // dd($storeData->toArray()); 
 
-        $store = Store::with('products')->get();
-        // dd($store->toArray());
-        return view('pages.home', [
-            'categories' => $categories,
-            'store' => $store,
-            'userData' => $userData,
-            // 'store' => $storeData,
-            // 'product' => $product,
-        ]);
+
     }
     public function createAccount()
     {
@@ -99,9 +100,9 @@ class UserController extends Controller
     public function userProfile()
     {
         $userData = session()->get('user');
-        $user = User::find($userData->id);
         // dd($userData->toArray());
         if ($userData) {
+            $user = User::find($userData->id);
             return view('pages.profile', ['userData' => $user]);
         } else {
             return redirect(route('e_store-login'));
