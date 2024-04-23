@@ -23,6 +23,14 @@ Route::post('/signIn', [UserController::class, 'signIn'])->name('e_store-signIn'
 //Sign up success
 Route::get('/success', [UserController::class, 'success'])->name('e_store-success');
 
+// Confirm Store Creation
+Route::get('/storeConfirm', [StoreController::class, 'confirmStore'])->name('e_store-storeConfirm');
+
+// User Profile
+Route::get('/userProfile', [UserController::class, 'userProfile'])->name('e_store-userProfile');
+
+// Update User Profile
+Route::post('/updateProfile/{id}', [UserController::class, 'updateProfile'])->name('e_store-updateProfile');
 
 Route::get('/failedSignIn', function () {
     return view('pages.failedSignIn');
@@ -48,9 +56,17 @@ Route::get('/inCart', [OrderController::class, 'inCartOrder'])->name('e_store-in
 
 Route::post('/cartItemDelete/{id}', [OrderController::class, 'deleteCartOrder'])->name('e_store-deleteCartOrder');
 
-Route::get('/edit', [ProductController::class, 'editStore'])->name('e_store-editStore');
+Route::get('/edit/{id}', [ProductController::class, 'editStore'])->name('e_store-editStore');
 
 Route::post('/orderCreate/{id}/{storeName}', [OrderController::class, 'addToCart'])->name('e_store-addToCart');
+
+
+
+
+
+
+
+
 
 Route::get('/{storeName}', [UserStoreController::class, 'storePage'])->name('e_store-storePage');
 

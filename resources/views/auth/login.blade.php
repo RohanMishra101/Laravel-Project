@@ -91,7 +91,7 @@
                                     <span>{{ $message }}</span>
                                 @enderror
                             </label>
-                            <input type="hidden" name="isMerchant" value="false">
+                            {{-- <input type="hidden" name="isMerchant" value="false"> --}}
                             <button type="submit" class="submit">Sign Up</button>
                         </form>
                     </div>
