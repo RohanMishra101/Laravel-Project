@@ -11,18 +11,16 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
-        .custom-profile-img-div {
+        .custom-profile-img {
             width: 50px;
             height: 50px;
-            margin-bottom: 10px;
+            border-radius: 50%;
+            object-fit: cover;
         }
 
-        .custom-profile-img {
-            /* border: 5px solid black; */
-            border-radius: 50%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .nav-link {
+            display: flex;
+            align-items: center;
         }
     </style>
 </head>
@@ -70,25 +68,20 @@
                             </li>
                             <!-- Dropdown menu -->
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#"
+                                    id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
                                     @if (session()->has('user'))
-                                        @if ($userData->img == !null)
-                                            <div class="custom-profile-img-div">
-                                                <img src="{{ asset($userData->img) }}" alt="userProfile"
-                                                    class="custom-profile-img">
-                                            </div>
+                                        @if ($userData->img)
+                                            <img src="{{ asset($userData->img) }}" alt="userProfile"
+                                                class="custom-profile-img me-2">
                                         @else
-                                            <div class="custom-profile-img-div">
-                                                <img src="{{ asset('images/profile.png') }}" alt="userProfile"
-                                                    class="custom-profile-img">
-                                            </div>
+                                            <img src="{{ asset('images/profile.png') }}" alt="userProfile"
+                                                class="custom-profile-img me-2">
                                         @endif
                                     @else
-                                        <div class="custom-profile-img-div">
-                                            <img src="{{ asset('images/profile.png') }}" alt="userProfile"
-                                                class="custom-profile-img">
-                                        </div>
+                                        <img src="{{ asset('images/profile.png') }}" alt="userProfile"
+                                            class="custom-profile-img me-2">
                                     @endif
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -104,14 +97,13 @@
                                         @endif
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-userProfile') }}">View
-                                            Profile</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="{{ route('e_store-storeConfirm') }}">Store</a>
+                                            Profile</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('e_store-storeConfirm') }}">Store</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-logout') }}">Log Out</a></li>
                                 </ul>
                             </li>
+
                         </ul>
                     </div>
                 </div>
