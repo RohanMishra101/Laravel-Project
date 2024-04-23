@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->integer('no_of_orders');
             $table->boolean('order_confirm')->default(false);
+            $table->boolean('order_sent')->default(false);
             $table->timestamps();
         });
     }
