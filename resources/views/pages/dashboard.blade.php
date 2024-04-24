@@ -140,17 +140,28 @@
                         </div>
                         <!-- Card 2 -->
                         <div class="col-md-4 mt-5">
+
+                            <div class="card border border-dark p-5 custom-card">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <a href="{{ route('e_store-listSentOrder') }}"><h1>Sent Orders</h1></a>
+
                             <a href="{{ route('e_store-listSentOrder') }}" class="text-decoration-none custom-hover">
                                 <div class="card border border-light rounded-5 p-5 custom-card h-100"
                                     style="background-color: rgb(230, 44, 44)">
                                     <div class="card-body d-flex align-items-center justify-content-center">
                                         <h1 class="text-center text-white">Completed Orders</h1>
                                     </div>
+
                                 </div>
                             </a>
                         </div>
                         <!-- Card 3 -->
                         <div class="col-md-4 mt-5">
+
+                            <div class="card border border-dark p-5 custom-card">
+                                <div class="card-body d-flex align-items-center justify-content-center">
+                                    <a href="{{ route('e_store-listConfirmOrder') }}"><h1>Total Orders</h1></a>
+
                             <a href="{{ route('e_store-listConfirmOrder') }}"
                                 class="text-decoration-none custom-hover">
                                 <div class="card border border-light rounded-5 p-5 custom-card h-100"
@@ -158,6 +169,7 @@
                                     <div class="card-body d-flex align-items-center justify-content-center text-white">
                                         <h1>Orders</h1>
                                     </div>
+
                                 </div>
                             </a>
                         </div>

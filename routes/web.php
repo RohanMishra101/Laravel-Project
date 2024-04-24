@@ -36,6 +36,10 @@ Route::get('/failedSignIn', function () {
     return view('pages.failedSignIn');
 })->name('e_store-failedSignIn');
 
+Route::post('/transactionMethod/{id}', [UserController::class, 'transactionMethod'])->name('e_store-transactionMethod');
+
+Route::post('/transactionMethodUpdate/{id}', [UserController::class, 'transactionMethodUpdate'])->name('e_store-transactionMethodUpdate');
+
 Route::get('/logout', [UserController::class, 'logout'])->name('e_store-logout');
 
 
