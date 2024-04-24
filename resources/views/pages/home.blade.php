@@ -187,12 +187,14 @@
                     <div class="col-12 ">
                         <div class="container items-section custom-border p-2">
                             <!-- Search Bar -->
-                            <div class="input-group custom-search mb-3">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <div class="input-group-append ">
-                                    <button class="btn btn-outline-secondary " type="button">Q</button>
+                            <form action="{{ route('e_store-search') }}" method="GET">
+                                <div class="input-group custom-search mb-3">
+                                    <input type="text" name="search" class="form-control" placeholder="Search">
+                                    <div class="input-group-append ">
+                                        <button class="btn btn-outline-secondary " type="submit">Q</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                             <!-- Items List -->
                             <div class="container mt-2">
                                 @foreach ($store as $item)

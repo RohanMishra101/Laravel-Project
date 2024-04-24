@@ -22,6 +22,13 @@
             display: flex;
             align-items: center;
         }
+
+        .dotted-border {
+            border: 4px dotted #000;
+            border-radius: 10px;
+            padding: 10px;
+            /* Adjust color and size as needed */
+        }
     </style>
 </head>
 
@@ -131,43 +138,52 @@
         <section>
             <div class="container custom-border p-4">
                 <div class="row">
-                    @foreach ($searchedProduct as $product)
-                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                            <div class="card h-100">
-                                <img src="{{ asset($product->p_img) }}"
-                                    class="card-img-top img-fluid border border-light rounded"
-                                    alt="{{ $product->p_name }}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $product->p_name }}</h5>
-                                    <p class="card-text">{{ $product->p_description }}</p>
-                                    <p class="card-text">
-                                        <small class="text-muted">Price: रु{{ $product->p_price }}</small>
-                                    </p>
-                                    <p class="card-text">
-                                        <small class="text-muted">Stock: {{ $product->p_stock }}</small>
-                                    </p>
-                                    <form action="/orderCreate/{{ $product->id }}/{{ $storeName = 'search' }}"
-                                        method="post" class="w-100">
-                                        @csrf
-                                        <div class="input-group mb-2">
-                                            <input type="number" name="NoOfOrder" id="NoOfOrder{{ $product->id }}"
-                                                class="form-control" placeholder="Enter quantity" required>
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-primary">
-                                                    <img src="{{ asset('images/add-to-cart.png') }}"
-                                                        alt="Add to cart" class="img-fluid"
-                                                        style="width: 20px; height: 20px;">
-                                                </button>
+                    @if ($searchedProduct->count() > 0)
+                        @foreach ($searchedProduct as $product)
+                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                                <div class="card h-100">
+                                    <img src="{{ asset($product->p_img) }}"
+                                        class="card-img-top img-fluid border border-light rounded"
+                                        alt="{{ $product->p_name }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $product->p_name }}</h5>
+                                        <p class="card-text">{{ $product->p_description }}</p>
+                                        <p class="card-text">
+                                            <small class="text-muted">Price: रु{{ $product->p_price }}</small>
+                                        </p>
+                                        <p class="card-text">
+                                            <small class="text-muted">Stock: {{ $product->p_stock }}</small>
+                                        </p>
+                                        <form action="/orderCreate/{{ $product->id }}/{{ $storeName = 'search' }}"
+                                            method="post" class="w-100">
+                                            @csrf
+                                            <div class="input-group mb-2">
+                                                <input type="number" name="NoOfOrder"
+                                                    id="NoOfOrder{{ $product->id }}" class="form-control"
+                                                    placeholder="Enter quantity" required>
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-primary">
+                                                        <img src="{{ asset('images/add-to-cart.png') }}"
+                                                            alt="Add to cart" class="img-fluid"
+                                                            style="width: 20px; height: 20px;">
+                                                    </button>
+                                                </div>
                                             </div>
-                                        </div>
-                                        @error('NoOfOrder')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </form>
+                                            @error('NoOfOrder')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
+                        @endforeach
+                    @else
+                        <div class="container w-100 p-5 border border-dark rounded-4 mt-5">
+                            <div class="container p-5 text-center dotted-border">
+                                <h1>OOP!! No Product Found</h1>
+                            </div>
                         </div>
-                    @endforeach
+                    @endif
                 </div>
             </div>
         </section>
