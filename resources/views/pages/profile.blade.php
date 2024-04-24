@@ -284,40 +284,12 @@
                         </form>
 
                     </div> --}}
-                    @if($transactionMethod!=NULL)
-                    <h1>Transaction Method exists</h1>
-                    <button id="updateButton">Update</button>
-                    <div class="container-fluid p-4"  style="display: none;" id="updateFormContainer">
-                        <form class="row" method="POST" action="/transactionMethodUpdate/{{$userData->id}}">
-                            @csrf
-                            <div class="col-md-12">
-                                <div class="mb-4">
-                                    <input type="text" class="form-control" placeholder="Name" name="name"
-                                        value="" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <input type="number" class="form-control" placeholder="Card No." name="cardNo"
-                                    value="">
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <input type="number" class="form-control" placeholder="CVV" name="cvv"
-                                    value="">
-                            </div>
-                            <div class="col-12 mt-4 justify-content-center d-flex">
-                                <button class="btn btn-success col-4" type="submit">Save</button>
-                            </div>
-                        </form>
-                    @else
-                    <div class="col-md-10 col-sm-12">
-                        <div class="text-center p-4">
-                            <div class="mb-3">
-                                <h1>Transaction Method</h1>
-                                <hr class="custom-hr">
-                            </div>
-                        </div>
-                        <div class="container-fluid p-4">
-                            <form class="row" method="POST" action="/transactionMethod/{{$userData->id}}">
+                    @if ($transactionMethod != null)
+                        <h1>Transaction Method exists</h1>
+                        <button id="updateButton">Update</button>
+                        <div class="container-fluid p-4" style="display: none;" id="updateFormContainer">
+                            <form class="row" method="POST"
+                                action="/transactionMethodUpdate/{{ $userData->id }}">
                                 @csrf
                                 <div class="col-md-12">
                                     <div class="mb-4">
@@ -333,22 +305,52 @@
                                     <input type="number" class="form-control" placeholder="CVV" name="cvv"
                                         value="">
                                 </div>
-
-                                <div class="col-md-6 mb-4">
-                                    <input type="date" class="form-control" placeholder="Expiry Date"
-                                        name="date" value="">
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <input type="text" class="form-control" placeholder="Address" name="address"
-                                        value="">
-                                </div>
-
                                 <div class="col-12 mt-4 justify-content-center d-flex">
                                     <button class="btn btn-success col-4" type="submit">Save</button>
                                 </div>
                             </form>
-                        </div>
-                    </div>
+                        @else
+                            <div class="col-md-10 col-sm-12">
+                                <div class="text-center p-4">
+                                    <div class="mb-3">
+                                        <h1>Transaction Method</h1>
+                                        <hr class="custom-hr">
+                                    </div>
+                                </div>
+                                <div class="container-fluid p-4">
+                                    <form class="row" method="POST"
+                                        action="/transactionMethod/{{ $userData->id }}">
+                                        @csrf
+                                        <div class="col-md-12">
+                                            <div class="mb-4">
+                                                <input type="text" class="form-control" placeholder="Name"
+                                                    name="name" value="" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <input type="number" class="form-control" placeholder="Card No."
+                                                name="cardNo" value="">
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <input type="number" class="form-control" placeholder="CVV"
+                                                name="cvv" value="">
+                                        </div>
+
+                                        {{-- <div class="col-md-6 mb-4">
+                                            <input type="date" class="form-control" placeholder="Expiry Date"
+                                                name="date" value="">
+                                        </div>
+                                        <div class="col-md-6 mb-4">
+                                            <input type="text" class="form-control" placeholder="Address"
+                                                name="address" value="">
+                                        </div> --}}
+
+                                        <div class="col-12 mt-4 justify-content-center d-flex">
+                                            <button class="btn btn-success col-4" type="submit">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                     @endif
                 </div>
             </div>
@@ -374,13 +376,13 @@
             }
         });
         document.getElementById('updateButton').onclick = function() {
-        var formContainer = document.getElementById('updateFormContainer');
-        if (formContainer.style.display === 'none') {
-            formContainer.style.display = 'block';
-        } else {
-            formContainer.style.display = 'none';
-        }
-    };
+            var formContainer = document.getElementById('updateFormContainer');
+            if (formContainer.style.display === 'none') {
+                formContainer.style.display = 'block';
+            } else {
+                formContainer.style.display = 'none';
+            }
+        };
     </script>
 
 

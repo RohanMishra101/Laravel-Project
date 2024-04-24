@@ -111,7 +111,7 @@
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-userProfile') }}">View
                                             Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('e_store-storeConfirm') }}">Store</a>
+                                    <li><a class="dropdown-item" href="{{ route('e_store-Home') }}">Home</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-logout') }}">Log Out</a></li>
                                 </ul>
@@ -127,56 +127,36 @@
         <section title="dashboard-section">
             <div>
                 {{-- Body Div --}}
-
-                <div class="container mt-5">
-                    <div class="row d-flex">
+                <div class="container p-4 border border-dark rounded-4">
+                    <div class="row d-flex justify-content-center">
                         <!-- Card 1 -->
-                        <div class="col-md-4 mt-5">
-                            <div class="card border border-dark p-5 custom-card h-100">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <h1>Card 1</h1>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Card 2 -->
-                        <div class="col-md-4 mt-5">
-
-                            <div class="card border border-dark p-5 custom-card">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('e_store-listSentOrder') }}"><h1>Sent Orders</h1></a>
-
+                        <div class="col-md-4">
                             <a href="{{ route('e_store-listSentOrder') }}" class="text-decoration-none custom-hover">
                                 <div class="card border border-light rounded-5 p-5 custom-card h-100"
                                     style="background-color: rgb(230, 44, 44)">
                                     <div class="card-body d-flex align-items-center justify-content-center">
                                         <h1 class="text-center text-white">Completed Orders</h1>
                                     </div>
-
                                 </div>
                             </a>
                         </div>
-                        <!-- Card 3 -->
-                        <div class="col-md-4 mt-5">
-
-                            <div class="card border border-dark p-5 custom-card">
-                                <div class="card-body d-flex align-items-center justify-content-center">
-                                    <a href="{{ route('e_store-listConfirmOrder') }}"><h1>Total Orders</h1></a>
-
+                        <!-- Card 2 -->
+                        <div class="col-md-4">
                             <a href="{{ route('e_store-listConfirmOrder') }}"
                                 class="text-decoration-none custom-hover">
                                 <div class="card border border-light rounded-5 p-5 custom-card h-100"
                                     style="background-color: rgb(35, 38, 237)">
-                                    <div class="card-body d-flex align-items-center justify-content-center text-white">
-                                        <h1>Orders</h1>
+                                    <div
+                                        class="card-body d-flex align-items-center justify-content-center text-white text-center">
+                                        <h1>Pending Orders</h1>
                                     </div>
-
                                 </div>
                             </a>
                         </div>
                     </div>
-
-
                 </div>
+
+
                 {{-- Add Product UI --}}
                 <div class="container mt-5 p-3 border border-dark rounded-4">
                     <div class="card border border-0" style="width: 18rem;">
@@ -204,7 +184,8 @@
                                             @csrf()
 
                                             <div class="mb-3">
-                                                <label for="p_name" class="form-label">Product Name</label>
+                                                <label for="p_name" class="form-label">Product
+                                                    Name</label>
                                                 <input type="text" class="form-control" id="p_name"
                                                     name="p_name" required>
                                                 <div class="invalid-feedback">
@@ -212,7 +193,8 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="p_img" class="form-label">Product Image</label>
+                                                <label for="p_img" class="form-label">Product
+                                                    Image</label>
                                                 <input type="file" class="form-control" id="p_img"
                                                     name="p_img" required>
                                                 <div class="invalid-feedback">
@@ -229,7 +211,8 @@
                                                 </div>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="p_price" class="form-label">Product Price</label>
+                                                <label for="p_price" class="form-label">Product
+                                                    Price</label>
                                                 <input type="number" class="form-control" id="p_price"
                                                     name="p_price" required>
                                                 <div class="invalid-feedback">
@@ -238,7 +221,8 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="p_stock" class="form-label">Product Stock</label>
+                                                <label for="p_stock" class="form-label">Product
+                                                    Stock</label>
                                                 <input type="number" class="form-control" id="p_stock"
                                                     name="p_stock" required>
                                                 <div class="invalid-feedback">
@@ -247,12 +231,15 @@
                                             </div>
 
                                             <div class="mb-3">
-                                                <label for="category" class="form-label">Product Category</label>
+                                                <label for="category" class="form-label">Product
+                                                    Category</label>
                                                 <select class="form-select" id="category" name="p_category"
                                                     required>
-                                                    <option value="" disabled selected>Select a category</option>
+                                                    <option value="" disabled selected>Select a
+                                                        category</option>
                                                     @foreach ($categories as $item)
-                                                        <option value="{{ $item['id'] }}">{{ $item['c_name'] }}
+                                                        <option value="{{ $item['id'] }}">
+                                                            {{ $item['c_name'] }}
                                                         </option>
                                                     @endforeach
                                                 </select>
@@ -298,7 +285,8 @@
                                                 <div class="card-body">
                                                     {{-- <h5>{{ $product->id }}</h5> --}}
                                                     <h5 class="card-title">{{ $product->p_name }}</h5>
-                                                    <p class="card-text">{{ $product->p_description }}</p>
+                                                    <p class="card-text">{{ $product->p_description }}
+                                                    </p>
                                                     <p class="card-text">
                                                         <small class="text-muted">Price:
                                                             ${{ $product->p_price }}

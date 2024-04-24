@@ -221,19 +221,6 @@
                                                                     <li>Price: रु{{ $product->p_price }}</li>
                                                                     <li>Stock: {{ $product->p_stock }}</li>
                                                                 </ul>
-                                                                {{-- <form
-                                                                    action="/orderCreate/{{ $product->id }}/{{ $item->store_name }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    <label>No.of Orders:</label>
-                                                                    <input type="number" name="NoOfOrder"
-                                                                        id="NoOfOrder" style="width: 100px">
-                                                                    <button type="submit" class="btn btn-primary"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#EditItemModal">
-                                                                        Add to cart
-                                                                    </button>
-                                                                </form> --}}
 
                                                                 <form
                                                                     action="/orderCreate/{{ $product->id }}/{{ $item->store_name }}"
@@ -277,73 +264,6 @@
                             </div>
                         </div>
                     </div>
-
-
-                    {{-- <div class="col-12">
-                        <div class="container items-section custom-border p-3">
-                            <!-- Reduced padding for smaller screens -->
-                            <!-- Search Bar -->
-                            <div class="input-group custom-search mb-3">
-                                <input type="text" class="form-control" placeholder="Search">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button">Q</button>
-                                </div>
-                            </div>
-                            <!-- Items List -->
-                            <div class="container mt-2"> <!-- Reduced top margin for smaller screens -->
-                                @foreach ($store as $item)
-                                    <div class="card mb-3"> <!-- Reduced margin-bottom for smaller screens -->
-                                        <div class="card-header nav justify-content-between d-flex flex-wrap">
-                                            <!-- Added flex-wrap -->
-                                            <h5 class="flex-grow-1">{{ $item->store_name }}</h5>
-                                            <!-- Reduced size for smaller screens -->
-                                            <a href="{{ route('e_store-storePage', $item->store_name) }}"
-                                                target="_blank" class="btn btn-primary btn-sm align-self-center">Visit
-                                                Store</a>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                @foreach ($item->products->take(4) as $product)
-                                                    <div class="col-md-6 col-sm-12 mb-3">
-                                                        <!-- Adjusted for better mobile responsiveness -->
-                                                        <div class="card h-100 d-flex flex-column">
-                                                            <img src="{{ asset($product->p_img) }}"
-                                                                class="card-img-top" alt="Product Image"
-                                                                style="height: 150px; object-fit: cover;">
-                                                            <div class="card-body d-flex flex-column">
-                                                                <h6 class="card-title">{{ $product->p_name }}</h6>
-                                                                <p class="card-text">{{ $product->p_description }}</p>
-                                                                <ul class="list-unstyled mt-auto">
-                                                                    <li>Price: ${{ $product->p_price }}</li>
-                                                                    <li>Stock: {{ $product->p_stock }}</li>
-                                                                </ul>
-                                                                <form
-                                                                    action="/orderCreate/{{ $product->id }}/{{ $item->store_name }}"
-                                                                    method="post" class="d-flex flex-column">
-                                                                    @csrf
-                                                                    <div class="input-group mb-2">
-                                                                        <label for="NoOfOrder"
-                                                                            class="form-label pe-2">No. of
-                                                                            Orders:</label>
-                                                                        <input type="number" name="NoOfOrder"
-                                                                            id="NoOfOrder" class="form-control"
-                                                                            style="max-width: 100px;">
-                                                                    </div>
-                                                                    <button type="submit" class="btn btn-primary">Add
-                                                                        to cart</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div> --}}
-
                 </div>
             </div>
         </section>

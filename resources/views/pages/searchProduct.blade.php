@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>e-store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
-    <title>e-store</title>
+
     <style>
         .custom-profile-img {
             width: 50px;
@@ -21,39 +22,17 @@
             display: flex;
             align-items: center;
         }
-
-        .custom-logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: contain;
-        }
-
-        .custom-hover {
-            cursor: pointer;
-            height: 40vh;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .dotted-border {
-            border: 4px dotted #000;
-            border-radius: 10px;
-            padding: 10px;
-            /* Adjust color and size as needed */
-        }
     </style>
 </head>
 
 <body>
-
     <main>
         <section title="nav-section" class="bg-light">
             <nav class="container navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid px-5">
                     <!-- Logo on the left -->
-                    <a class="navbar-brand" href="{{ route('e_store-storePage', $store->store_name) }}">
-                        {{-- src="{{ asset('images/e-store-logo.png') }}"  --}}
-                        <img src="{{ asset($store->img) }}" alt="Logo" class="custom-logo">
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ asset('images/e-store-logo.png') }}" alt="Logo" style="height: 100px;">
                     </a>
                     <!-- Toggler for mobile view -->
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -118,7 +97,7 @@
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-userProfile') }}">View
                                             Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('e_store-Home') }}">Home</a>
+                                    <li><a class="dropdown-item" href="{{ route('e_store-storeConfirm') }}">Store</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-logout') }}">Log Out</a></li>
                                 </ul>
@@ -128,93 +107,74 @@
                     </div>
                 </div>
             </nav>
+
+
         </section>
-        <section title="Header">
-            <div class="header container">
-                <h1 class="text-center h1-custom-font ">Completed Orders</h1>
-                <hr class="custom-hr mb-3">
+
+
+        {{-- search Section --}}
+        <section title="Search-Section">
+            <div class="container-lg p-4 rounded custom-css">
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" name="search" id="search" class="form-control fs-3"
+                            placeholder="Search">
+                        <button class="btn btn-primary fs-3" type="submit"
+                            style="background-color: #38AEE0; border-color: #38AEE0;">
+                            Q
+                        </button>
+                    </div>
+                </form>
             </div>
         </section>
+
         <section>
-            @if (count($orders) > 0)
-                <div class="container custom-product-list p-4 custom-border">
-                    <div class="row">
-                        @foreach ($orders as $order)
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-                                <div class="card h-100 shadow-sm">
-                                    @foreach ($products as $product)
-                                        @if ($product->id == $order->product_id)
-                                            <img src="{{ asset($product->p_img) }}"
-                                                class="card-img-top custom-card-img" alt="{{ $product->p_name }}">
-                                            <div class="card-body">
-                                                <h5 class="card-title">{{ $product->p_name }}</h5>
-                                                <p class="card-text">{{ $product->p_description }}</p>
-                                                <p class="card-text">
-                                                    <small class="text-muted">Price: ${{ $product->p_price }}</small>
-                                                </p>
+            <div class="container custom-border p-4">
+                <div class="row">
+                    @foreach ($searchedProduct as $product)
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                            <div class="card h-100">
+                                <img src="{{ asset($product->p_img) }}"
+                                    class="card-img-top img-fluid border border-light rounded"
+                                    alt="{{ $product->p_name }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $product->p_name }}</h5>
+                                    <p class="card-text">{{ $product->p_description }}</p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Price: रु{{ $product->p_price }}</small>
+                                    </p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Stock: {{ $product->p_stock }}</small>
+                                    </p>
+                                    <form action="/orderCreate/{{ $product->id }}/{{ $storeName = 'search' }}"
+                                        method="post" class="w-100">
+                                        @csrf
+                                        <div class="input-group mb-2">
+                                            <input type="number" name="NoOfOrder" id="NoOfOrder{{ $product->id }}"
+                                                class="form-control" placeholder="Enter quantity" required>
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary">
+                                                    <img src="{{ asset('images/add-to-cart.png') }}"
+                                                        alt="Add to cart" class="img-fluid"
+                                                        style="width: 20px; height: 20px;">
+                                                </button>
                                             </div>
-                                        @endif
-                                    @endforeach
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">No Of Orders: {{ $order->no_of_orders }}</li>
-                                        @foreach ($users as $user)
-                                            @if ($user->id == $order->user_id)
-                                                <li class="list-group-item">{{ $user->username }}</li>
-                                                <li class="list-group-item">{{ $user->email }}</li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                    <div class="card-footer text-muted">
-                                        Order completed at {{ $order->updated_at->format('m/d/Y H:i') }}
-                                    </div>
+                                        </div>
+                                        @error('NoOfOrder')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </form>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                </div>
-            @else
-                <div class="container w-100 p-5 border border-dark rounded-4 mt-5">
-                    <div class="container p-5 text-center dotted-border">
-                        <h1>No Orders Found</h1>
-                    </div>
-                </div>
-            @endif
-
-
-        </section>
-    </main>
-
-    {{-- <div class="container custom-product-list border border-dark rounded-4">
-        @foreach ($orders as $order)
-            <div class="col-md-3">
-                <div class="card mb-4">
-                    @foreach ($products as $product)
-                        @if ($product->id == $order->product_id)
-                            <img src="{{ asset($product->p_img) }}"
-                                class=" border border-light rounded card-img-top custom-card-img"
-                                alt="{{ $product->p_name }}">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $product->p_name }}</h5>
-                                <p class="card-text">{{ $product->p_description }}</p>
-                                <p class="card-text"><small class="text-muted">Price:${{ $product->p_price }}</small>
-                                </p>
-                            </div>
-                        @endif
+                        </div>
                     @endforeach
-                    <p class="card-text"><small class="text-muted">No Of Orders:{{ $order->no_of_orders }}</small>
-                    </p>
-                    @foreach ($users as $user)
-                        @if ($user->id == $order->user_id)
-                            <p class="card-text">{{ $user->username }}</p>
-                            <p class="card-text">{{ $user->email }}</p>
-                        @endif
-                    @endforeach
-                    <p class="card-text"><small class="text-muted">This order was completed at
-                            {{ $order->updated_at }}</small></p>
                 </div>
             </div>
-        @endforeach
-    </div> --}}
+        </section>
+
+
+    </main>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
