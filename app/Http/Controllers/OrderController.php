@@ -108,7 +108,8 @@ class OrderController extends Controller
         $order->order_sent= TRUE;
         $order->update();
         $productId=$order->product_id;
-        $productStock=Product::where('id', $productId)->get();
+        $productStock = Product::where('id', $productId)->first();
+        // return view(dd($productStock->p_stock));
         $a=intval($productStock->p_stock);
         $ans=intval($a)-$no;
         $productStock->p_stock=$ans;

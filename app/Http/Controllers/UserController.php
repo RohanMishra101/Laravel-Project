@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Store;
 use App\Models\User;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -100,10 +101,12 @@ class UserController extends Controller
     public function userProfile()
     {
         $userData = session()->get('user');
-        // dd($userData->toArray());
+        $userId = session()->get('user')->id;
+        $transaction = Transaction::where('user_id', $userId)->first();
+        $transactionMethod = $transaction ? $transaction->id: null;
         if ($userData) {
             $user = User::find($userData->id);
-            return view('pages.profile', ['userData' => $user]);
+            return view('pages.profile', ['userData' => $user,'transactionMethod'=>$transactionMethod]);
         } else {
             return redirect(route('e_store-login'));
         }
@@ -171,4 +174,25 @@ class UserController extends Controller
         return redirect(route('e_store-login'));
     }
 
+    public function transactionMethod($id, Request $request)
+    {
+        $transactionData = [
+            'user_id'=>$id,
+            'p_name'=>$request->name,
+            'card_no'=>$request->cardNo,
+            'CVV'=>$request->cvv
+        ];
+        Transaction::create($transactionData);
+        return redirect(route('e_store-userProfile'));
+    }
+
+    public function transactionMethodUpdate($id, Request $request)
+    {
+        $transaction=Transaction::find($id);
+        $transaction->p_name=$request->name;
+        $transaction->card_no=$request->cardNo;
+        $transaction->CVV=$request->cvv;
+        $transaction->update();
+        return redirect(route('e_store-userProfile'));
+    }
 }
