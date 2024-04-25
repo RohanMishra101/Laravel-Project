@@ -153,14 +153,16 @@
                                                     <small class="text-muted">Price: ${{ $product->p_price }}</small>
                                                 </p>
                                             </div>
+                                            @php break; @endphp
                                         @endif
-                                    @endforeach
+                                    @endforeach 
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">No Of Orders: {{ $order->no_of_orders }}</li>
                                         @foreach ($users as $user)
                                             @if ($user->id == $order->user_id)
                                                 <li class="list-group-item">{{ $user->username }}</li>
                                                 <li class="list-group-item">{{ $user->email }}</li>
+                                                @php break; @endphp
                                             @endif
                                         @endforeach
                                     </ul>
