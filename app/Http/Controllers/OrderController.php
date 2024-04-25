@@ -12,18 +12,38 @@ use App\Models\User;
 class OrderController extends Controller
 {
 
-    public function addToCart($id,$storeName, Request $request)
+    public function addToCart($id, $storeName, Request $request)
     {
+        // dd($storeName);
         $userId = session()->get('user')->id;
         // $storeName = Store::where('id', $userId)->first()->store_name;
+        // dd($request->NoOfOrder);
+
+        $product = Product::find($request->id);
+        // dd($product);
+        if ($product->p_stock < $request->NoOfOrder) {
+            return redirect()->back()->with('error', 'Not enough stock');
+        }
+
+        if ($request->NoOfOrder <= 0) {
+            return redirect()->back()->with('error', 'Please enter number of orders');
+        }
+
+
+
         $orderData = [
-            'product_id'=>$id,
-            'user_id'=>$userId,
-            'no_of_orders'=>$request->NoOfOrder
+            'product_id' => $id,
+            'user_id' => $userId,
+            'no_of_orders' => $request->NoOfOrder
         ];
         // dd($orderData);
         Order::create($orderData);
-        return redirect()->route('e_store-storePage', ['storeName' => $storeName]);
+
+        if ($storeName == 'search') {
+            return redirect()->back();
+        } else {
+            return redirect()->route('e_store-storePage', ['storeName' => $storeName]);
+        }
     }
 
     /**
@@ -36,11 +56,11 @@ class OrderController extends Controller
         $productId = Order::where('user_id', $userId)->pluck('product_id');
         $cartDetails = Order::where('user_id', $userId)->get();
         $cartItems = Product::whereIn('id', $productId)->get();
-        return view('cart.cart',[
+        return view('cart.cart', [
             'categories' => $category,
             // 'cartItems'=>  $productId,
-            'cartItems'=> $cartItems,
-            'cartDetails'=> $cartDetails
+            'cartItems' => $cartItems,
+            'cartDetails' => $cartDetails
         ]);
     }
 
@@ -59,7 +79,8 @@ class OrderController extends Controller
      */
     public function confirmCartOrder($id)
     {
-        $cartDetails =  Order::where('id', $id)->update(['order_confirm' => true]);;
+        $cartDetails = Order::where('id', $id)->update(['order_confirm' => true]);
+        ;
         return redirect()->route('e_store-inCartOrder');
     }
 
@@ -68,35 +89,43 @@ class OrderController extends Controller
      */
     public function listOrder()
     {
-        $userId = session()->get('user')->id;
-        $storeId = Store::where('user_id', $userId)->first()->id;
-        $category = Category::all();
-        $user = User::all();
-        $products = Product::with('category')
-            ->where('store_id', $storeId)->get();
-        $productIds = $products->pluck('id')->toArray();
-        $orders = Order::whereIn('product_id', $productIds)->where('order_confirm', true)->where('order_sent', false)->get();
-        // Create an empty array to store product details
-        $orderedProducts = [];
+        if (session()->has('user')) {
+            $userId = session()->get('user')->id;
+            $store = Store::where('user_id', $userId)->first();
+            $userData = User::where('id', session()->get('user')->id)->first();
+            $storeId = Store::where('user_id', $userId)->first()->id;
+            $category = Category::all();
+            $user = User::all();
+            $products = Product::with('category')
+                ->where('store_id', $storeId)->get();
+            $productIds = $products->pluck('id')->toArray();
+            $orders = Order::whereIn('product_id', $productIds)->where('order_confirm', true)->where('order_sent', false)->get();
+            // Create an empty array to store product details
+            $orderedProducts = [];
 
-        // Loop through each order and retrieve the product details
-        foreach ($orders as $order) {
-            $productId = $order->product_id;
-            $product = Product::find($productId);
-            if ($product) {
-                $orderedProducts[] = $product;
+            // Loop through each order and retrieve the product details
+            foreach ($orders as $order) {
+                $productId = $order->product_id;
+                $product = Product::find($productId);
+                if ($product) {
+                    $orderedProducts[] = $product;
+                }
             }
-        }
 
-        //dd($orderedProducts);
-        // dd($orders);
-        // $orderedProducts=Product::whereIn('id',$orders->product_id)->get();
-        return view('pages.listConfirmOrders', [
-            'categories' => $category,
-            'products' => $orderedProducts,
-            'orders' => $orders,
-            'users' => $user
-        ]);
+            //dd($orderedProducts);
+            // dd($orders);
+            // $orderedProducts=Product::whereIn('id',$orders->product_id)->get();
+            return view('pages.listConfirmOrders', [
+                'categories' => $category,
+                'products' => $orderedProducts,
+                'orders' => $orders,
+                'users' => $user,
+                'store' => $store,
+                'userData' => $userData
+            ]);
+        } else {
+            return redirect(route('e_store-login'));
+        }
     }
 
     /**
@@ -104,15 +133,17 @@ class OrderController extends Controller
      */
     public function sendOrder($id, $no)
     {
-        $order=Order::find($id);
-        $order->order_sent= TRUE;
+        $userId = session()->get('user')->id;
+        // $store = Store::where('user_id', $userId)->first();
+        $order = Order::find($id);
+        $order->order_sent = TRUE;
         $order->update();
-        $productId=$order->product_id;
+        $productId = $order->product_id;
         $productStock = Product::where('id', $productId)->first();
         // return view(dd($productStock->p_stock));
-        $a=intval($productStock->p_stock);
-        $ans=intval($a)-$no;
-        $productStock->p_stock=$ans;
+        $a = intval($productStock->p_stock);
+        $ans = intval($a) - $no;
+        $productStock->p_stock = $ans;
         $productStock->update();
         // return view(dd($productStock));
         // return response("HI");
@@ -122,6 +153,8 @@ class OrderController extends Controller
     public function listSentOrder()
     {
         $userId = session()->get('user')->id;
+        $store = Store::where('user_id', $userId)->first();
+        $userData = User::where('id', session()->get('user')->id)->first();
         $storeId = Store::where('user_id', $userId)->first()->id;
         $category = Category::all();
         $user = User::all();
@@ -148,7 +181,9 @@ class OrderController extends Controller
             'categories' => $category,
             'products' => $orderedProducts,
             'orders' => $orders,
-            'users' => $user
+            'users' => $user,
+            'store' => $store,
+            'userData' => $userData,
         ]);
     }
 }

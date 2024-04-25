@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +23,7 @@ class ProductController extends Controller
         $category = Category::all();
         if (session()->has('user')) {
             $userId = session()->get('user')->id;
+            $userData = User::where('id', session()->get('user')->id)->first();
             // $user_id = session()->get('user')->id;
             $store = Store::where('user_id', $userId)->first();
             // dd($store->toArray());
@@ -38,7 +40,9 @@ class ProductController extends Controller
                 // dd($productsByCategory->toArray());
                 return view('pages.dashboard', [
                     'categories' => $category,
+                    'store' => $store,
                     'productsByCategory' => $productsByCategory,
+                    'userData' => $userData
                 ]);
             }
         } else {

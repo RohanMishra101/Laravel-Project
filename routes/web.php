@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserStoreController;
@@ -72,6 +73,7 @@ Route::get('/edit/{id}', [ProductController::class, 'editStore'])->name('e_store
 
 Route::post('/orderCreate/{id}/{storeName}', [OrderController::class, 'addToCart'])->name('e_store-addToCart');
 
+Route::get('/search', [SearchController::class, 'index'])->name('e_store-search');
 
 
 

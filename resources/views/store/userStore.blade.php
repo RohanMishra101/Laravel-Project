@@ -37,6 +37,11 @@
     <p>{{ $storeData->toArray()[0]['description'] }}</p> --}}
 
     <main>
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         {{-- navigation sectoi --}}
         <section title="Nav-Section">
             <nav class="container navbar navbar-expand-lg navbar-light  mt-0 ">
@@ -129,13 +134,13 @@
         {{-- search Section --}}
         <section title="Search-Section">
             <div class="container-lg p-4 rounded custom-css">
-                <form action="">
+                <form action="{{ route('e_store-search') }}" method="GET">
                     <div class="input-group">
                         <input type="text" name="search" id="search" class="form-control fs-3"
                             placeholder="Search">
                         <button class="btn btn-primary fs-3" type="submit"
                             style="background-color: #38AEE0; border-color: #38AEE0;">
-                            Search
+                            Q
                         </button>
                     </div>
                 </form>
@@ -155,10 +160,18 @@
                     Filter
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="#">Option 1</a></li>
-                    <li><a class="dropdown-item" href="#">Option 2</a></li>
-                    <li><a class="dropdown-item" href="#">Option 3</a></li>
-                    <li><a class="dropdown-item" href="#">Option 4</a></li>
+                    @foreach ($categories as $category)
+                        @php
+                            $categoryProducts = $productData->where('c_id', $category->id);
+                        @endphp
+                        @if ($categoryProducts->isNotEmpty())
+                            <li>
+                                <a class="dropdown-item" href="#{{ $category->id }}">
+                                    {{ $category->c_name }}
+                                </a>
+                            </li>
+                        @endif
+                    @endforeach
                 </ul>
             </div>
             {{-- Product List --}}
@@ -177,7 +190,8 @@
                                 @foreach ($categoryProducts as $product)
                                     {{-- <p>{{$product->id}}</p> --}}
                                     <div class="col-md-3">
-                                        <div class="card mb-4"> <!-- Increased margin for better spacing -->
+                                        <div class="card mb-4" id="{{ $category->id }}">
+                                            <!-- Increased margin for better spacing -->
                                             <img src="{{ asset($product->p_img) }}"
                                                 class=" border border-light rounded card-img-top custom-card-img"
                                                 alt="{{ $product->p_name }}">
@@ -185,71 +199,41 @@
                                                 <h5 class="card-title">{{ $product->p_name }}</h5>
                                                 <p class="card-text">{{ $product->p_description }}</p>
                                                 <p class="card-text"><small class="text-muted">Price:
-                                                        ${{ $product->p_price }}</small></p>
+                                                        रु{{ $product->p_price }}</small></p>
                                                 <p class="card-text"><small class="text-muted">Stock:
                                                         {{ $product->p_stock }}</small></p>
                                                 {{-- <p class="card-text"><small class="text-muted">Category:
-                                                            {{ $product->c_name }}</small></p> --}}
+                                                                {{ $product->c_name }}</small></p> --}}
                                                 <form action="/orderCreate/{{ $product->id }}/{{ $storeName }}"
-                                                    method="post">
+                                                    method="post" class="row align-items-center w-100">
                                                     @csrf
-                                                    <label>No.of Orders:</label>
-                                                    <input type="number" name="NoOfOrder" id="NoOfOrder">
-                                                    <button type="submit" class="btn btn-primary"
-                                                        data-bs-toggle="modal" data-bs-target="#EditItemModal">
-                                                        Add to cart
-                                                    </button>
-                                                </form>
-
-                                                {{-- Pop up
-                                                <div class="modal fade" id="EditItemModal" tabindex="-1"
-                                                    aria-labelledby="modalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="modalLabel">Add To Card
-                                                                </h5>
-                                                                <button type="button" class="btn-close"
-                                                                    data-bs-dismiss="modal" aria-label="Close">
-                                                                </button>
-                                                            </div>
-
-
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-bs-dismiss="modal">Close</button>
-                                                            </div>
+                                                    <div class="d-flex justify-content-between">
+                                                        <div class="col-9">
+                                                            <input type="number" name="NoOfOrder"
+                                                                id="NoOfOrder{{ $product->id }}"
+                                                                class="form-control" placeholder="Enter quantity">
+                                                            @error('NoOfOrder')
+                                                                <p>{{ $message }}</p>
+                                                            @enderror
+                                                        </div>
+                                                        <div class="col-auto">
+                                                            <button type="submit"
+                                                                class="btn btn-primary d-flex justify-content-center align-items-center"
+                                                                style="width: 60px; height: 37px;">
+                                                                <img src="{{ asset('images/add-to-cart.png') }}"
+                                                                    alt="Add-to-cart"
+                                                                    style="width: 20px; height: 20px;">
+                                                            </button>
                                                         </div>
                                                     </div>
-                                                </div> --}}
-                                                {{-- <div id="hiddenEditForm-{{ $product->id }}"
-                                                        style="display: none" class="mt-2">
-                                                        <form action="" method="post">
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-success">Submit
-                                                                Edit</button>
-                                                        </form>
-                                                    </div> --}}
-
-                                                <button type="button" class="btn btn-danger"
-                                                    onclick="document.getElementById('hiddenDeleteForm-{{ $product->id }}').style.display='block'">
-                                                    Details
-                                                </button>
-                                                {{-- <div id="hiddenDeleteForm-{{ $product->id }}" style="display: none"
-                                                    class="mt-2 text-center">
-                                                    <form action="" method="post">
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-warning">Confirm
-                                                            Delete</button>
-                                                    </form>
-                                                </div> --}}
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
                             </div>
                         </div>
-                    @else
+
                         {{-- <p>No products found in this category.</p> --}}
                     @endif
                 @endforeach
