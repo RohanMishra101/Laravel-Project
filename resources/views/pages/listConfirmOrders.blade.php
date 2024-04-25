@@ -199,6 +199,7 @@
                                                 <p class="card-text"><small class="text-muted">Price:
                                                         ${{ $product->p_price }}</small></p>
                                             </div>
+                                            @php break; @endphp
                                         @endif
                                     @endforeach
                                     <div class="card-footer bg-white">
@@ -208,6 +209,7 @@
                                             @if ($user->id == $order->user_id)
                                                 <p class="card-text">{{ $user->username }}</p>
                                                 <p class="card-text">{{ $user->email }}</p>
+                                                @php break; @endphp
                                             @endif
                                         @endforeach
                                         <form action="/sendOrder/{{ $order['id'] }}/{{ $order['no_of_orders'] }}"
