@@ -75,6 +75,7 @@
                                                                     data-bs-target="#EditItemModal">Confirm</button>
                                                             </form>
                                                         @endif
+                                                        @if ($details['order_sent'] == 0)
                                                         <button type="submit" id="showDeleteForm-{{ $details['id'] }}"
                                                             class="btn btn-primary" data-bs-toggle="modal"
                                                             data-bs-target="#EditItemModal">Delete</button>
@@ -89,6 +90,7 @@
                                                                     onclick="showForm('hiddenDeleteForm-{{ $details['id'] }}')">No</button>
                                                             </form>
                                                         </div>
+                                                        @endif
                                                         {{-- <p>{{ $details['id'] }}</p> --}}
                                                     @endif
                                                 @endforeach
