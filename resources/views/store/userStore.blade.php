@@ -22,6 +22,16 @@
             display: flex;
             align-items: center;
         }
+
+        .custom-hover-effect {
+            cursor: pointer;
+            transition: all 200ms ease-in-out;
+        }
+
+        .custom-hover-effect:hover {
+            transform: scale(1.07);
+            transition: 200ms all ease-in-out;
+        }
     </style>
 </head>
 
@@ -43,7 +53,7 @@
                                 alt="{{ $storeData->toArray()[0]['store_name'] }}" class="rounded-circle"
                                 style="height: 100%; width: 100%;">
                         </a>
-                        <p class="fs-4 fw-bold">{{ $storeData->toArray()[0]['store_name'] }}
+                        {{-- <p class="fs-4 fw-bold">{{ $storeData->toArray()[0]['store_name'] }} --}}
                         </p>
 
                     </div>
@@ -165,7 +175,7 @@
                 </ul>
             </div>
             {{-- Product List --}}
-            <div class="container custom-product-list custom-border">
+            <div class="container custom-product-list custom-border mb-5">
                 @foreach ($categories as $category)
                     @php
                         $categoryProducts = $productData->where('c_id', $category->id);
@@ -180,14 +190,15 @@
                                 @foreach ($categoryProducts as $product)
                                     {{-- <p>{{$product->id}}</p> --}}
                                     <div class="col-md-3">
-                                        <div class="card mb-4" id="{{ $category->id }}">
+                                        <div class="card mb-4 custom-hover-effect" id="{{ $category->id }}">
                                             <!-- Increased margin for better spacing -->
                                             <img src="{{ asset($product->p_img) }}"
                                                 class=" border border-light rounded card-img-top custom-card-img"
                                                 alt="{{ $product->p_name }}">
                                             <div class="card-body">
                                                 <h5 class="card-title">{{ $product->p_name }}</h5>
-                                                <p class="card-text">{{ $product->p_description }}</p>
+                                                <p class="card-text overflow-hidden" style="height: 50px">
+                                                    {{ $product->p_description }}</p>
                                                 <p class="card-text"><small class="text-muted">Price:
                                                         रु{{ $product->p_price }}</small></p>
                                                 <p class="card-text"><small class="text-muted">Stock:

@@ -102,7 +102,8 @@
                                         @if (session()->has('user'))
                                             <div>
                                                 <p class="p-tag">
-                                                    {{ session()->get('user')->username }}
+                                                    {{-- {{ session()->get('user')->username }} --}}
+                                                    {{ $store->store_name }}
                                                 </p>
                                             </div>
                                         @else
@@ -188,6 +189,9 @@
                                                     Name</label>
                                                 <input type="text" class="form-control" id="p_name"
                                                     name="p_name" required>
+                                                @error('p_name')
+                                                    <p>{{ $message }}</p>
+                                                @enderror
                                                 <div class="invalid-feedback">
                                                     Please provide a product name.
                                                 </div>
@@ -197,6 +201,9 @@
                                                     Image</label>
                                                 <input type="file" class="form-control" id="p_img"
                                                     name="p_img" required>
+                                                @error('p_img')
+                                                    <p>{{ $message }}</p>
+                                                @enderror
                                                 <div class="invalid-feedback">
                                                     Please provide an image.
                                                 </div>
@@ -205,16 +212,22 @@
                                             <div class="mb-3">
                                                 <label for="p_description" class="form-label fs-5">Product
                                                     Description</label>
-                                                <textarea class="form-control" name="p_disc" id="p_disc" rows="10"></textarea>
+                                                <textarea class="form-control" name="p_disc" id="p_disc" rows="10" required></textarea>
                                                 <div class="invalid-feedback">
                                                     Please provide a description.
                                                 </div>
+                                                @error('p_disc')
+                                                    <p>{{ $message }}</p>
+                                                @enderror
                                             </div>
                                             <div class="mb-3">
                                                 <label for="p_price" class="form-label">Product
                                                     Price</label>
                                                 <input type="number" class="form-control" id="p_price"
                                                     name="p_price" required>
+                                                @error('p_price')
+                                                    <p>{{ $message }}</p>
+                                                @enderror
                                                 <div class="invalid-feedback">
                                                     Please provide a price.
                                                 </div>
@@ -225,6 +238,9 @@
                                                     Stock</label>
                                                 <input type="number" class="form-control" id="p_stock"
                                                     name="p_stock" required>
+                                                @error('p_stock')
+                                                    <p>{{ $message }}</p>
+                                                @enderror
                                                 <div class="invalid-feedback">
                                                     Please enter the stock quantity.
                                                 </div>
@@ -285,11 +301,12 @@
                                                 <div class="card-body">
                                                     {{-- <h5>{{ $product->id }}</h5> --}}
                                                     <h5 class="card-title">{{ $product->p_name }}</h5>
-                                                    <p class="card-text">{{ $product->p_description }}
+                                                    <p class="card-text overflow-hidden" style="height: 50px">
+                                                        {{ $product->p_description }}
                                                     </p>
                                                     <p class="card-text">
                                                         <small class="text-muted">Price:
-                                                            ${{ $product->p_price }}
+                                                            रु {{ $product->p_price }}
                                                         </small>
                                                     </p>
                                                     <p class="card-text">
