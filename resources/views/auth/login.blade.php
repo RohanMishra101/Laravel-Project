@@ -38,7 +38,7 @@
                             @endif
                         </label>
                         <button class="submit" type="submit">Sign In</button>
-                        <p class="forgot-pass">Forgot Password ?</p>
+                        <p class="forgot-pass"><a href="{{route('e_store-forgetPassword')}}">Forgot Password ?</a></p>
                     </div>
                 </form>
 
