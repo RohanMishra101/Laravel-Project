@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
+use App\Models\Transaction;
 
 class OrderController extends Controller
 {
@@ -79,9 +80,14 @@ class OrderController extends Controller
      */
     public function confirmCartOrder($id)
     {
-        $cartDetails = Order::where('id', $id)->update(['order_confirm' => true]);
-        ;
-        return redirect()->route('e_store-inCartOrder');
+        $transactionData = Transaction::where('user_id', session()->get('user')->id)->first();
+        if($transactionData!=NULL){
+            Order::where('id', $id)->update(['order_confirm' => true]);
+            return redirect()->route('e_store-inCartOrder');
+        }
+        else{
+            return view('pages.transactionAdd');
+        }
     }
 
     /**
