@@ -36,11 +36,12 @@
         <section>
             <div class="container full-screen-center ">
                 <div>
-                    <h1 class="text-center mb-3">Sing Up Sucesssfull!!</h1>
+                    <h1 class="text-center mb-3">Seems like you are not loged in</h1>
 
+                    <h3 class="text-center mb-4">Continue to login...</h3>
 
                     <div class="text-center">
-
+                        <a class="btn btn-secondary btn-custom" href="{{ route('e_store-Home') }}">Back</a>
                         <a class="btn btn-primary btn-custom" href="{{ route('e_store-login') }}">Login</a>
                     </div>
                 </div>

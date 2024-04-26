@@ -47,6 +47,8 @@ Route::post('/transactionMethodUpdate/{id}', [UserController::class, 'transactio
 
 Route::get('/logout', [UserController::class, 'logout'])->name('e_store-logout');
 
+Route::get('/loginConfirm', [UserController::class, 'loginConfirm'])->name('e_store-loginConfirm');
+
 
 // Store creation page
 Route::get('/createStore', [StoreController::class, 'index'])->name('e_store-createStore');

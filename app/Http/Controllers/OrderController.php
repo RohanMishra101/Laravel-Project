@@ -15,35 +15,32 @@ class OrderController extends Controller
 
     public function addToCart($id, $storeName, Request $request)
     {
-        // dd($storeName);
-        $userId = session()->get('user')->id;
-        // $storeName = Store::where('id', $userId)->first()->store_name;
-        // dd($request->NoOfOrder);
 
-        $product = Product::find($request->id);
-        // dd($product);
-        if ($product->p_stock < $request->NoOfOrder) {
-            return redirect()->back()->with('error', 'Not enough stock');
-        }
-
-        if ($request->NoOfOrder <= 0) {
-            return redirect()->back()->with('error', 'Please enter number of orders');
-        }
-
-
-
-        $orderData = [
-            'product_id' => $id,
-            'user_id' => $userId,
-            'no_of_orders' => $request->NoOfOrder
-        ];
-        // dd($orderData);
-        Order::create($orderData);
-
-        if ($storeName == 'search') {
-            return redirect()->back();
+        if (session()->has('user')) {
+            // dd($storeName);
+            $userId = session()->get('user')->id;
+            $product = Product::find($request->id);
+            // dd($product);
+            if ($product->p_stock < $request->NoOfOrder) {
+                return redirect()->back()->with('error', 'Not enough stock');
+            }
+            if ($request->NoOfOrder <= 0) {
+                return redirect()->back()->with('error', 'Please enter number of orders');
+            }
+            $orderData = [
+                'product_id' => $id,
+                'user_id' => $userId,
+                'no_of_orders' => $request->NoOfOrder
+            ];
+            // dd($orderData);
+            Order::create($orderData);
+            if ($storeName == 'search') {
+                return redirect()->back();
+            } else {
+                return redirect()->route('e_store-storePage', ['storeName' => $storeName]);
+            }
         } else {
-            return redirect()->route('e_store-storePage', ['storeName' => $storeName]);
+            return redirect(route('e_store-loginConfirm'));
         }
     }
 
@@ -52,17 +49,21 @@ class OrderController extends Controller
      */
     public function inCartOrder(Request $request)
     {
-        $userId = session()->get('user')->id;
-        $category = Category::all();
-        $productId = Order::where('user_id', $userId)->pluck('product_id');
-        $cartDetails = Order::where('user_id', $userId)->get();
-        $cartItems = Product::whereIn('id', $productId)->get();
-        return view('cart.cart', [
-            'categories' => $category,
-            // 'cartItems'=>  $productId,
-            'cartItems' => $cartItems,
-            'cartDetails' => $cartDetails
-        ]);
+        if (session()->has('user')) {
+            $userId = session()->get('user')->id;
+            $category = Category::all();
+            $productId = Order::where('user_id', $userId)->pluck('product_id');
+            $cartDetails = Order::where('user_id', $userId)->get();
+            $cartItems = Product::whereIn('id', $productId)->get();
+            return view('cart.cart', [
+                'categories' => $category,
+                // 'cartItems'=>  $productId,
+                'cartItems' => $cartItems,
+                'cartDetails' => $cartDetails
+            ]);
+        } else {
+            return redirect(route('e_store-loginConfirm'));
+        }
     }
 
     /**
@@ -81,11 +82,10 @@ class OrderController extends Controller
     public function confirmCartOrder($id)
     {
         $transactionData = Transaction::where('user_id', session()->get('user')->id)->first();
-        if($transactionData!=NULL){
+        if ($transactionData != NULL) {
             Order::where('id', $id)->update(['order_confirm' => true]);
             return redirect()->route('e_store-inCartOrder');
-        }
-        else{
+        } else {
             return view('pages.transactionAdd');
         }
     }

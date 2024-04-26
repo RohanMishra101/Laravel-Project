@@ -66,7 +66,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}" target="_blank">
+                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path
@@ -118,7 +118,7 @@
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-userProfile') }}">View
                                             Profile</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('e_store-Home') }}">Home</a>
+                                    <li><a class="dropdown-item" href="{{ route('e_store-dashboard') }}">Dashboard</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('e_store-logout') }}">Log Out</a></li>
                                 </ul>
@@ -155,7 +155,7 @@
                                             </div>
                                             @php break; @endphp
                                         @endif
-                                    @endforeach 
+                                    @endforeach
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">No Of Orders: {{ $order->no_of_orders }}</li>
                                         @foreach ($users as $user)
