@@ -228,9 +228,7 @@
                             </div>
                         </div>
                         <div class="d-flex flex-column justify-content-center align-items-center">
-                            <button class="btn btn-primary w-25 mt-5">
-                                Update
-                            </button>
+                            <button class="btn btn-primary w-25 mt-5">Update</button>
                         </div>
                     </form>
                 </div>
@@ -286,7 +284,7 @@
                     </div> --}}
                     @if ($transactionMethod != null)
                         <h1>Transaction Method exists</h1>
-                        <button id="updateButton">Update</button>
+                        <button id="updateButton" class="btn btn-primary w-25 mt-5">Update</button>
                         <div class="container-fluid p-4" style="display: none;" id="updateFormContainer">
                             <form class="row" method="POST"
                                 action="/transactionMethodUpdate/{{ $userData->id }}">
