@@ -42,61 +42,11 @@
 
 <body>
     <main>
-        {{-- <section>
-            <div class="container ">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <form method="POST" action="" enctype="multipart/form-data" class="custom-form-container">
-                            <div class="form-group text-center d-flex justify-content-center">
-                                <div>
-                                    <img src="{{ asset($userData->img ?? 'images/profile.png') }}" alt="Profile Image"
-                                        class="img-circle" style="width: 150px; height: 150px;">
-                                </div>
-                                <input id="file-upload" type="file" name="image" />
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="User Name" name="username"
-                                    value="{{ $userData->username }}">
-                            </div>
-
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Email" name="email"
-                                    value="{{ $userData->email }}">
-                            </div>
-
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Password" name="password">
-                            </div>
-
-                            <div class="form-group">
-                                <button class="btn btn-success btn-update-password">Update Password</button>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Contact" name="contact"
-                                    value="{{ $userData->contact }}">
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Address" name="address"
-                                    value="{{ $userData->address }}">
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-save">Save</button>
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
         <section title="nav-section" class="bg-light">
             <nav class="container navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid px-5">
                     <!-- Logo on the left -->
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{{ route('e_store-Home') }}">
                         <img src="{{ asset('images/e-store-logo.png') }}" alt="Logo" style="height: 100px;">
                     </a>
                     <!-- Toggler for mobile view -->
@@ -110,7 +60,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}" target="_blank">
+                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path

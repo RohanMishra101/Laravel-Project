@@ -38,7 +38,7 @@
             <nav class="container navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid px-5">
                     <!-- Logo on the left -->
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{{ route('e_store-Home') }}">
                         <img src="{{ asset('images/e-store-logo.png') }}" alt="Logo" style="height: 100px;">
                     </a>
                     <!-- Toggler for mobile view -->
@@ -52,7 +52,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}" target="_blank">
+                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path
