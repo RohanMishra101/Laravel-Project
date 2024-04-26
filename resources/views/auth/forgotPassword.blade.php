@@ -27,8 +27,8 @@
                             @endif
                         </label>
                         <label>
-                            <input type="password" name="password" placeholder="Password">
-                            <input type="password" name="forgotPassword" placeholder="Confirm Password">
+                            <input type="password" name="password" placeholder="Password" required>
+                            <input type="password" name="forgotPassword" placeholder="Confirm Password" required>
                             @if(session('message'))
                                 <span>{{ session('message') }}</span>
                             @endif
