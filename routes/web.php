@@ -33,6 +33,10 @@ Route::get('/userProfile', [UserController::class, 'userProfile'])->name('e_stor
 // Update User Profile
 Route::post('/updateProfile/{id}', [UserController::class, 'updateProfile'])->name('e_store-updateProfile');
 
+Route::get('/forgetPassword', [UserController::class, 'forgetPassword'])->name('e_store-forgetPassword');
+
+Route::post('/updatePassword', [UserController::class, 'updatePassword'])->name('e_store-updatePassword');
+
 Route::get('/failedSignIn', function () {
     return view('pages.failedSignIn');
 })->name('e_store-failedSignIn');

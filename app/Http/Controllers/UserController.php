@@ -196,8 +196,24 @@ class UserController extends Controller
         return redirect(route('e_store-userProfile'));
     }
 
-    public function loginConfirm()
-    {
-        return view('auth.loginConfirm');
+     public function forgetPassword(){
+        return view('auth.forgotPassword');
+     }
+
+     public function updatePassword(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if($user){
+            if($request->password === $request->forgotPassword){ // Use strict comparison
+                $user->password = bcrypt($request->password); // Ensure to hash the password
+                $user->save(); // Use save() instead of update()
+                return redirect(route('e_store-login'));
+            }else{
+                $message="Password doesn't match";
+                return redirect()->route('e_store-forgetPassword')->with('message', $message);
+            }
+        }else{
+            $message="Email doesn't exist";
+            return redirect()->route('e_store-forgetPassword')->with('emailMessage', $message);
+        }
     }
 }
