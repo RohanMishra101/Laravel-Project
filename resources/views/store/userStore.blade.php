@@ -26,16 +26,6 @@
 </head>
 
 <body>
-    {{-- <h1>{{ $storeData->toArray() }}</h1> --}}
-
-
-    {{-- <h1>{{ $storeData->toArray()[0]['store_name'] }}</h1>
-
-    <h1>{{ $storeData->toArray()[0]['store_name'] }}</h1>
-
-    <img src="{{ $storeData->toArray()[0]['img'] }}" alt="">
-    <p>{{ $storeData->toArray()[0]['description'] }}</p> --}}
-
     <main>
         @if (session('error'))
             <div class="alert alert-danger">
@@ -68,7 +58,7 @@
                         <ul class="navbar-nav">
                             <!-- First image -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}" target="_blank">
+                                <a class="nav-link" href="{{ route('e_store-inCartOrder') }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="80"
                                         height="40" fill="currentColor" class="nav-svg">
                                         <path

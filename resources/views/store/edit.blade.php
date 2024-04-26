@@ -14,50 +14,6 @@
 <body>
 
     <main>
-        {{-- <div class="container custom-center">
-            Header
-            <div>
-                <h1>Edit Product</h1>
-                <hr class="custom-hr">
-            </div>
-            form section
-            <div>
-                <ul>
-                    <div>
-                        <img src="{{ asset($product->p_img) }}" alt="">
-                    </div>
-                    <form action="" method="POST">
-                        @csrf
-                        <div>
-                            <input type="file" name="p_img">
-                        </div>
-                        <div class="mb-3">
-                            <label for="p_name" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="p_name" name="p_name"
-                                value="{{ $product->p_name }}">
-                        </div>
-                        <div class="mb-3">
-                            <label for="p_description" class="form-label">Product Description</label>
-                            <textarea name="p_desc" id="" value="{{ $product->p_description }}" cols="30" rows="10"></textarea>
-                        </div>
-                        <div>
-                            <label for="p_price" class="form-label">Product Price</label><label for="p_price"
-                                class="form-label">Price</label>
-                            <input type="number" class="form-control" id="p_price" name="p_price"
-                                value="{{ $product->p_price }}">
-                        </div>
-                        <div>
-                            <label for="p_stock" class="form-label">Product Stock"</label>
-                            <input type="number" class="form-control" id="p_stock" name="p_stock"
-                                value="{{ $product->p_stock }}">
-                        </div>
-
-                        <button>Edit</button>
-
-                </ul>
-            </div>
-        </div> --}}
-
         <div class="container mt-4">
             <div class="row">
                 <div class="col-12 mb-5">
