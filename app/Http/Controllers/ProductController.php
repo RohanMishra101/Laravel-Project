@@ -56,6 +56,16 @@ class ProductController extends Controller
      */
     public function addProduct(Request $request)
     {
+
+        request()->validate([
+            'p_name' => 'required',
+            'p_img' => 'required',
+            'p_category' => 'required',
+            'p_disc' => 'required',
+            'p_price' => 'required',
+            'p_stock' => 'required',
+        ]);
+
         $userId = session()->get('user')->id;
         $storeId = Store::where('user_id', $userId)->first()->id;
 

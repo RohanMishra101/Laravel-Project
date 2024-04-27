@@ -22,6 +22,16 @@
             display: flex;
             align-items: center;
         }
+
+        .custom-hover-effect {
+            cursor: pointer;
+            transition: all 200ms ease-in-out;
+        }
+
+        .custom-hover-effect:hover {
+            transform: scale(1.07);
+            transition: 200ms all ease-in-out;
+        }
     </style>
 </head>
 
@@ -164,6 +174,12 @@
 
         {{-- Body Section --}}
         <section title="body-section">
+
+            <div class="container">
+                <h1 class="text-center mt-5">Stores</h1>
+                <hr class="custom-hr">
+            </div>
+
             <div class="container mt-5 ">
                 <div class="row">
                     <!-- Categories Section -->
@@ -198,7 +214,7 @@
                             <!-- Items List -->
                             <div class="container mt-2">
                                 @foreach ($store as $item)
-                                    <div class="card mb-4">
+                                    <div class="card mb-4 ">
                                         <div class="card-header nav justify-content-between d-flex flex-wrap">
                                             <h1>{{ $item->store_name }}</h1>
                                             <a href="{{ route('e_store-storePage', $item->store_name) }}"
@@ -206,10 +222,10 @@
                                                 class="btn btn-primary text-center btn-sm align-self-center p-2">Visit
                                                 Store</a>
                                         </div>
-                                        <div class="card-body">
+                                        <div class="card-body ">
                                             <div class="row">
                                                 @foreach ($item->products->take(4) as $product)
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4 custom-hover-effect">
                                                         <div class="card h-100 d-flex flex-column">
                                                             <img src="{{ asset($product->p_img) }}"
                                                                 class="card-img-top" alt="Product Image"
